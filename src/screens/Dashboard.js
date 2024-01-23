@@ -197,7 +197,7 @@ const Dashboard = (props) => {
               Data Anggaran
             </Text>
             <Text style={{ color: 'black', fontSize: 16, fontFamily: 'times new roman' }}>
-              Total: {budgets.totalbudget}
+              Total: Rp.{budgets.totalbudget}
             </Text>
           </View>
           <ScrollView>

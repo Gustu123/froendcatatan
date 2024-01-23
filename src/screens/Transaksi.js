@@ -1,101 +1,29 @@
-import React, { useState, useRef, useEffect } from "react";
-import { StyleSheet, Button, View, TouchableOpacity, Text, useWindowDimensions, Dimensions, TextInput, FlatList, ScrollView, Image } from 'react-native';
-import { Icon } from "@rneui/themed";
+import React, {useState, useRef, useEffect, useCallback} from "react";
+import {
+    StyleSheet,
+    Button,
+    View,
+    TouchableOpacity,
+    Text,
+    useWindowDimensions,
+    Dimensions,
+    TextInput,
+    FlatList,
+    ScrollView,
+    Image
+} from 'react-native';
+import {Icon} from "@rneui/themed";
 import DatePicker from "react-native-date-picker";
-import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
-import { Modalize } from "react-native-modalize";
+import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
+import {Modalize} from "react-native-modalize";
 import moment from "moment";
 import Navbar from "../components/Navbar"
-import { useNavigation } from "@react-navigation/native"
-import { alltransaction, transaction } from "../services/transaksi";
-
-const dummyData = [
-    {
-        name: 'Tabungan 1',
-        balance: 10000,
-        date: '10/10/2023',
-        text: 'Makanan',
-        Image: '../assets/img/logo.png'
-    },
-    {
-        name: 'Tabungan 1',
-        balance: 10000,
-        date: '10/10/2023',
-        text: 'Makanan',
-        Image: '../assets/img/logo.png'
-    },
-    {
-        name: 'Tabungan 1',
-        balance: 10000,
-        date: '10/10/2023',
-        text: 'Makanan',
-        Image: '../assets/img/logo.png'
-    },
-    {
-        name: 'Tabungan 1',
-        balance: 10000,
-        date: '10/10/2023',
-        text: 'Makanan',
-        Image: '../assets/img/logo.png'
-    },
-    {
-        name: 'Tabungan 1',
-        balance: 10000,
-        date: '10/10/2023',
-        text: 'Makanan',
-        Image: '../assets/img/logo.png'
-    },
-    {
-        name: 'Tabungan 1',
-        balance: 10000,
-        date: '10/10/2023',
-        text: 'Makanan',
-        Image: '../assets/img/logo.png'
-    },
-    {
-        name: 'Tabungan 1',
-        balance: 10000,
-        date: '10/10/2023',
-        text: 'Makanan',
-        Image: '../assets/img/logo.png'
-    },
-    {
-        name: 'Tabungan 1',
-        balance: 10000,
-        date: '10/10/2023',
-        text: 'Makanan',
-        Image: '../assets/img/logo.png'
-    },
-    {
-        name: 'Tabungan 1',
-        balance: 10000,
-        date: '10/10/2023',
-        text: 'Makanan',
-        Image: '../assets/img/logo.png'
-    },
-    {
-        name: 'Tabungan 2',
-        balance: 10000,
-        date: '10/10/2023',
-        text: 'Makanan',
-        Image: '../assets/img/logo.png'
-    },
-    {
-        name: 'Tabungan 1',
-        balance: 10000,
-        date: '10/10/2023',
-        text: 'Makanan',
-        Image: '../assets/img/logo.png'
-    },
-]
-//const modalizeRef = useRef(null)
-//const showBs = () => {
-//   modalizeRef.current?.open()
-//    }
+import {useFocusEffect, useNavigation} from "@react-navigation/native"
+import {alltransaction, transaction} from "../services/transaksi";
 
 const FirstRoute = (props) => {
 
-    const { data } = props
+    const {data} = props
     const modalizeRef = useRef(null)
     const showBs = () => {
         modalizeRef.current?.open()
@@ -105,10 +33,9 @@ const FirstRoute = (props) => {
         modalizeRef.current?.close()
     }
 
-
     const navigati = useNavigation()
-    const navigateDetail = (id) =>{
-        navigati.navigate("Deskripsitransaksi",{id})
+    const navigateDetail = (id) => {
+        navigati.navigate("Deskripsitransaksi", {id})
     }
     const keluar = () => {
         navigati.navigate('UangKeluar')
@@ -122,44 +49,56 @@ const FirstRoute = (props) => {
 
     return (
         <View style={styles.home}>
-            <View >
-                <Text style={{ color: 'black', fontSize: 16 }}>
-                    Total Pemasukan: {data.totalCashIn}
+            <View>
+                <Text style={{color: 'black', fontSize: 16}}>
+                    Total Pemasukan: Rp.{data.totalCashIn}
                 </Text>
-                <Text style={{ color: 'black', fontSize: 16 }}>
-                    Total Pengeluaran: {data.totalCashOut}
+                <Text style={{color: 'black', fontSize: 16}}>
+                    Total Pengeluaran: Rp.{data.totalCashOut}
                 </Text>
             </View>
-            <View style={{ flex: 1 }}>
+            <View style={{flex: 1}}>
                 <ScrollView>
                     <FlatList
                         data={data.transactions}
                         scrollEnabled={false}
                         keyExtractor={(item, index) => index}
-                        renderItem={({ item, index }) => {
+                        renderItem={({item, index}) => {
                             return (
-                                <TouchableOpacity onPress={()=>navigateDetail(item.id)} style={{ borderWidth: 2, borderColor: 'black', backgroundColor: 'white', marginVertical: 5, paddingHorizontal: 10, paddingVertical: 9, paddingTop: 2, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', margin: 2, }}>
-                                    <View style={{ flexDirection: 'row', }}>
+                                <TouchableOpacity onPress={() => navigateDetail(item.id)} style={{
+                                    borderWidth: 2,
+                                    borderColor: 'black',
+                                    backgroundColor: 'white',
+                                    marginVertical: 5,
+                                    paddingHorizontal: 10,
+                                    paddingVertical: 9,
+                                    paddingTop: 2,
+                                    flexDirection: 'row',
+                                    justifyContent: 'space-between',
+                                    alignItems: 'center',
+                                    margin: 2,
+                                }}>
+                                    <View style={{flexDirection: 'row',}}>
                                         <View>
                                             <Image
                                                 source={item.Image}
-                                                style={{ width: 40, height: 40, }}
+                                                style={{width: 40, height: 40,}}
                                             />
                                         </View>
-                                        <View style={{ marginLeft: 3 }}>
-                                            <Text style={{ color: 'black', fontSize: 16 }}>
+                                        <View style={{marginLeft: 3}}>
+                                            <Text style={{color: 'black', fontSize: 16}}>
                                                 {item.name}
                                             </Text>
-                                            <Text style={{ color: 'black', fontSize: 16 }}>
+                                            <Text style={{color: 'black', fontSize: 16}}>
                                                 {item.deskripsi}
                                             </Text>
                                         </View>
                                     </View>
                                     <View>
-                                        <Text style={{ color: 'black', fontSize: 16 }}>
+                                        <Text style={{color: 'black', fontSize: 16}}>
                                             Rp. {item.amount}
                                         </Text>
-                                        <Text style={{ color: 'black', fontSize: 16 }}>
+                                        <Text style={{color: 'black', fontSize: 16}}>
                                             {item.created_at}
                                         </Text>
                                     </View>
@@ -167,7 +106,7 @@ const FirstRoute = (props) => {
                             )
                         }}
                         ListEmptyComponent={() => (
-                            <Text style={{ color: 'black' }}>Kosong Bos</Text>
+                            <Text style={{color: 'black'}}>Kosong Bos</Text>
                         )}
                     />
                 </ScrollView>
@@ -190,7 +129,7 @@ const FirstRoute = (props) => {
             >
                 <View style={styles.fixToText1}>
                     <Text style={styles.uploadtext}>Silahkan Masukan Data Uang:</Text>
-                    <View style={{ flexDirection: 'row' }}>
+                    <View style={{flexDirection: 'row'}}>
                         <TouchableOpacity
                             onPress={keluar}
                             style={styles.upload}
@@ -206,13 +145,13 @@ const FirstRoute = (props) => {
                     </View>
                 </View>
             </Modalize>
-        </View >
+        </View>
     )
 };
 
 const SecondRoute = (props) => {
 
-    const { data } = props
+    const {data} = props
     const modalizeRef = useRef(null)
     const showBs = () => {
         modalizeRef.current?.open()
@@ -223,8 +162,8 @@ const SecondRoute = (props) => {
     }
 
     const navigati = useNavigation()
-    const navigateDetail = (id) =>{
-        navigati.navigate("Deskripsitransaksi",{id})
+    const navigateDetail = (id) => {
+        navigati.navigate("Deskripsitransaksi", {id})
     }
     const keluar = () => {
         navigati.navigate('UangKeluar')
@@ -238,53 +177,65 @@ const SecondRoute = (props) => {
 
     return (
         <View style={styles.home}>
-            <View >
-                <Text style={{ color: 'black', fontSize: 16 }}>
-                    Total Pemasukan: {data.totalCashIn}
+            <View>
+                <Text style={{color: 'black', fontSize: 16}}>
+                    Total Pemasukan: Rp.{data.totalCashIn}
                 </Text>
-                <Text style={{ color: 'black', fontSize: 16 }}>
-                    Total Pengeluaran: {data.totalCashOut}
+                <Text style={{color: 'black', fontSize: 16}}>
+                    Total Pengeluaran: Rp.{data.totalCashOut}
                 </Text>
             </View>
-            <View style={{flex:1}}>
+            <View style={{flex: 1}}>
                 {/* <ScrollView> */}
-                    <FlatList
-                        data={data.transactions}
-                        keyExtractor={(item, index) => index}
-                        renderItem={({ item, index }) => {
-                            return (
-                                <TouchableOpacity onPress={()=>navigateDetail(item.id)}  style={{ borderWidth: 2, borderColor: 'black', backgroundColor: 'white', marginVertical: 5, paddingHorizontal: 10, paddingVertical: 9, paddingTop: 2, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', margin: 2, }}>
-                                    <View style={{ flexDirection: 'row', }}>
-                                        <View>
-                                            <Image
-                                                source={item.Image}
-                                                style={{ width: 40, height: 40, }}
-                                            />
-                                        </View>
-                                        <View style={{ marginLeft: 3 }}>
-                                            <Text style={{ color: 'black', fontSize: 16 }}>
-                                                {item.name}
-                                            </Text>
-                                            <Text style={{ color: 'black', fontSize: 16 }}>
-                                                {item.deskripsi}
-                                            </Text>
-                                        </View>
-                                    </View>
+                <FlatList
+                    data={data.transactions}
+                    keyExtractor={(item, index) => index}
+                    renderItem={({item, index}) => {
+                        return (
+                            <TouchableOpacity onPress={() => navigateDetail(item.id)} style={{
+                                borderWidth: 2,
+                                borderColor: 'black',
+                                backgroundColor: 'white',
+                                marginVertical: 5,
+                                paddingHorizontal: 10,
+                                paddingVertical: 9,
+                                paddingTop: 2,
+                                flexDirection: 'row',
+                                justifyContent: 'space-between',
+                                alignItems: 'center',
+                                margin: 2,
+                            }}>
+                                <View style={{flexDirection: 'row',}}>
                                     <View>
-                                        <Text style={{ color: 'black', fontSize: 16 }}>
-                                            Rp. {item.amount}
+                                        <Image
+                                            source={item.Image}
+                                            style={{width: 40, height: 40,}}
+                                        />
+                                    </View>
+                                    <View style={{marginLeft: 3}}>
+                                        <Text style={{color: 'black', fontSize: 16}}>
+                                            {item.name}
                                         </Text>
-                                        <Text style={{ color: 'black', fontSize: 16 }}>
-                                            {item.created_at}
+                                        <Text style={{color: 'black', fontSize: 16}}>
+                                            {item.deskripsi}
                                         </Text>
                                     </View>
-                                </TouchableOpacity>
-                            )
-                        }}
-                        ListEmptyComponent={() => (
-                            <Text style={{ color: 'black' }}>Kosong Bos</Text>
-                        )}
-                    />
+                                </View>
+                                <View>
+                                    <Text style={{color: 'black', fontSize: 16}}>
+                                        Rp. {item.amount}
+                                    </Text>
+                                    <Text style={{color: 'black', fontSize: 16}}>
+                                        {moment(item.created_at).format("YYYY-MM-DD")}
+                                    </Text>
+                                </View>
+                            </TouchableOpacity>
+                        )
+                    }}
+                    ListEmptyComponent={() => (
+                        <Text style={{color: 'black'}}>Kosong Bos</Text>
+                    )}
+                />
                 {/* </ScrollView> */}
             </View>
             <TouchableOpacity
@@ -305,7 +256,7 @@ const SecondRoute = (props) => {
             >
                 <View style={styles.fixToText1}>
                     <Text style={styles.uploadtext}>Silahkan Masukan Data Uang:</Text>
-                    <View style={{ flexDirection: 'row' }}>
+                    <View style={{flexDirection: 'row'}}>
                         <TouchableOpacity
                             onPress={keluar}
                             style={styles.upload}
@@ -321,21 +272,17 @@ const SecondRoute = (props) => {
                     </View>
                 </View>
             </Modalize>
-        </View >
+        </View>
     )
 }
 
-const renderScene = SceneMap({
-    first: FirstRoute,
-    second: SecondRoute
-})
 const renderTabBar = (props) => {
     return (
         <TabBar
             {...props}
-            style={{ backgroundColor: '#6AA84F' }}
-            renderLabel={({ route, focused, color }) => (
-                <View style={[styles.tabbar, { backgroundColor: focused ? 'yellow' : 'gray' }]}>
+            style={{backgroundColor: '#6AA84F'}}
+            renderLabel={({route, focused, color}) => (
+                <View style={[styles.tabbar, {backgroundColor: focused ? 'yellow' : 'gray'}]}>
                     <Text style={styles.tabtitle}>
                         {route.title}
                     </Text>
@@ -357,8 +304,8 @@ const Transaksi = () => {
 
     const [index, setIndex] = React.useState(0);
     const [routes] = React.useState([
-        { key: 'first', title: 'HARIAN' },
-        { key: 'second', title: 'BULANAN' },
+        {key: 'first', title: 'HARIAN'},
+        {key: 'second', title: 'BULANAN'},
     ]);
 
     const [transactions, setTransactions] = useState([])
@@ -369,17 +316,20 @@ const Transaksi = () => {
                 search: search
             }
             : {
-                month: date.getMonth()+1,
+                month: date.getMonth() + 1,
                 search: search
             }
         const budgets = await alltransaction(params)
 
         setTransactions(budgets)
-        console.log(date.getMonth(),date.getDate())
+        console.log(date.getMonth(), date.getDate())
     }
-    useEffect(() => {
-        allTransaction()
-    }, [index, date])
+
+    useFocusEffect(
+        useCallback(() => {
+            allTransaction()
+        }, [index, date])
+    )
 
     return (
         <View style={styles.bg}>
@@ -429,17 +379,17 @@ const Transaksi = () => {
             </View>
             <TabView
                 renderTabBar={renderTabBar}
-                navigationState={{ index, routes }}
-                renderScene={({ route }) => {
+                navigationState={{index, routes}}
+                renderScene={({route}) => {
                     switch (route.key) {
                         case "first":
-                            return <FirstRoute data={transactions} />;
+                            return <FirstRoute data={transactions}/>;
                         case "second":
-                            return <SecondRoute data={transactions} />;
+                            return <SecondRoute data={transactions}/>;
                     }
                 }}
                 onIndexChange={setIndex}
-                initialLayout={{ width: layout.width }}
+                initialLayout={{width: layout.width}}
             />
         </View>
     )

@@ -1,26 +1,38 @@
-import { CheckBox, Icon } from "@rneui/themed";
-import React, { useEffect, useState, useRef } from "react";
-import { Button, FlatList, Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
-import { useNavigation, useRoute } from '@react-navigation/native'
+import {CheckBox, Icon} from "@rneui/themed";
+import React, {useEffect, useState, useRef} from "react";
+import {
+    Button,
+    FlatList,
+    Image,
+    ScrollView,
+    StyleSheet,
+    Text,
+    TextInput,
+    ToastAndroid,
+    TouchableOpacity,
+    View
+} from "react-native";
+import {useNavigation, useRoute} from '@react-navigation/native'
 import Navbar from "../components/Navbarr";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useDispatch } from "react-redux";
-import { actionLogout } from "../redux/actions/authAction";
-import { detailtransaction } from "../services/transaksi";
-import { baseUrl } from "../services/baseApi";
+import {useDispatch} from "react-redux";
+import {actionLogout} from "../redux/actions/authAction";
+import {deleteTransaction, detailtransaction} from "../services/transaksi";
+import {baseUrl} from "../services/baseApi";
 
 
 const Deskripsitransaksi = () => {
     const navigati = useNavigation();
 
     const route = useRoute()
-    const { id } = route.params
+    const {id} = route.params
 
-    const dispatch = useDispatch();
-    const onLoginPress = () => {
-        AsyncStorage.setItem("token", "").then(() => {
-            dispatch(actionLogout())
-        })
+    const doDelete = () => {
+        deleteTransaction(id)
+            .then(() => {
+                ToastAndroid.show("Berhasil hapus data", 1000)
+                navigati.goBack()
+            })
     }
 
     const [deskripsis, setDeskripsis] = useState({})
@@ -29,43 +41,43 @@ const Deskripsitransaksi = () => {
         setDeskripsis(deskripsis)
     }
 
-        useEffect(() => {
-            allDeskripsi()
-        }, [])
-    
+    useEffect(() => {
+        allDeskripsi()
+    }, [])
+
     return (
-        <View style={{ flex: 1 }}>
+        <View style={{flex: 1}}>
             <Navbar
                 title="Deskripsi"
                 hasicon={false}
             />
             <View style={styles.container}>
                 <View>
-                <Image
-                    source={{uri: `${baseUrl}${deskripsis?.receipt}`}}
-                    style={{ width: 200, height: 200, }}
-                />
+                    <Image
+                        source={{uri: `${baseUrl}${deskripsis?.receipt}`}}
+                        style={{width: 200, height: 200,}}
+                    />
 
                 </View>
-                <View style={{ marginTop: 5 }}>
+                <View style={{marginTop: 5}}>
                     <Text style={styles.text}>Name:</Text>
-                    <Text style={styles.textt}>Ida Bagus Putu Suartha Wibawa</Text>
+                    <Text style={styles.textt}>{deskripsis.name}</Text>
                 </View>
-                <View style={{ marginTop: 5 }}></View>
+                <View style={{marginTop: 5}}></View>
                 <Text style={styles.text}>Deskripsi:</Text>
-                <Text style={styles.textt}>Gustune23@gmail.com:</Text>
+                <Text style={styles.textt}>{deskripsis.deskripsi}</Text>
             </View>
-            <View style={{ marginTop: 5 }}>
+            <View style={{marginTop: 5}}>
                 <Text style={styles.text}>Tujuan</Text>
-                <Text style={styles.textt}>01030180843</Text>
+                <Text style={styles.textt}>{deskripsis.purposeable_type}</Text>
             </View>
-            <View style={{ marginTop: 5 }}>
+            <View style={{marginTop: 5}}>
                 <Text style={styles.text}>Amount:</Text>
-                <Text style={styles.textt}>Jl. Pitu, Perumahan Griya Sika Asri No. 3</Text>
+                <Text style={styles.textt}>Rp. {deskripsis.amount}</Text>
             </View>
             <View style={styles.containers}>
                 <TouchableOpacity
-                    onPress={onLoginPress}
+                    onPress={doDelete}
                     style={styles.upload}
                 >
                     <Text style={styles.uploadtext}>Hapus</Text>

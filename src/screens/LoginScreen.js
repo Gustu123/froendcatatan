@@ -32,6 +32,7 @@ const LoginScreen = () => {
                 .then((res) => {
                     AsyncStorage.setItem("token", res.token)
                     AsyncStorage.setItem("user_id", JSON.stringify(res.user_id))
+                    AsyncStorage.setItem("name", res.username)
                     dispatch(addUsername(res.username))
                     dispatch(addToken(res.token))
                 })

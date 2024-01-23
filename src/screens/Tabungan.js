@@ -22,8 +22,8 @@ const Tabungan = (props) => {
     const onTambah = () => {
         navigati.navigate('TambahTabungan')
     }
-    const doDelete = async () => {
-        await deleteWallet(selectedId)
+    const doDelete = () => {
+        deleteWallet(selectedId)
             .then(() => {
                 ToastAndroid.show("Berhasil hapus data", 1000)
                 modalizeRef.current?.close()

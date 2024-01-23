@@ -1,102 +1,30 @@
-import React, { useState, useRef, useEffect } from "react";
-import { StyleSheet, Button, View, TouchableOpacity, Text, Dimensions, useWindowDimensions, TextInput, FlatList, ScrollView, Image } from 'react-native';
-import { Icon } from "@rneui/themed";
+import React, {useState, useRef, useEffect, useCallback} from "react";
+import {
+    StyleSheet,
+    Button,
+    View,
+    TouchableOpacity,
+    Text,
+    Dimensions,
+    useWindowDimensions,
+    TextInput,
+    FlatList,
+    ScrollView,
+    Image, ToastAndroid
+} from 'react-native';
+import {Icon} from "@rneui/themed";
 import DatePicker from "react-native-date-picker";
-import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
-import { useNavigation } from "@react-navigation/native"
-import { Modalize } from "react-native-modalize";
+import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
+import {useFocusEffect, useNavigation} from "@react-navigation/native"
+import {Modalize} from "react-native-modalize";
 import Navbar from "../components/Navbar"
 import moment from "moment";
-import { alldebt } from "../services/utang";
-
-// const dummyData = [
-//     {
-//         name: 'Tabungan 1',
-//         deskripsi: 'Diwarung Bu sari',
-//         budget: 10000,
-//         date: '10/10/2023',
-//     },
-//     {
-//         name: 'Tabungan 1',
-//         deskripsi: 'Diwarung Bu sari',
-//         budget: 10000,
-//         date: '10/10/2023',
-//     },
-//     {
-//         name: 'Tabungan 1',
-//         deskripsi: 'Diwarung Bu sari',
-//         budget: 10000,
-//         date: '10/10/2023',
-//     },
-//     {
-//         name: 'Tabungan 1',
-//         deskripsi: 'Diwarung Bu sari',
-//         budget: 10000,
-//         date: '10/10/2023',
-//     },
-//     {
-//         name: 'Tabungan 1',
-//         deskripsi: 'Diwarung Bu sari',
-//         budget: 10000,
-//         date: '10/10/2023',
-//     },
-//     {
-//         name: 'Tabungan 1',
-//         deskripsi: 'Diwarung Bu sari',
-//         budget: 10000,
-//         date: '10/10/2023',
-//     },
-//     {
-//         name: 'Tabungan 1',
-//         deskripsi: 'Diwarung Bu sari',
-//         budget: 10000,
-//         date: '10/10/2023',
-//     },
-//     {
-//         name: 'Tabungan 1',
-//         deskripsi: 'Diwarung Bu sari',
-//         budget: 10000,
-//         date: '10/10/2023',
-//     }, {
-//         name: 'Tabungan 1',
-//         deskripsi: 'Diwarung Bu sari',
-//         budget: 10000,
-//         date: '10/10/2023',
-//     },
-//     {
-//         name: 'Tabungan 1',
-//         deskripsi: 'Diwarung Bu sari',
-//         budget: 10000,
-//         date: '10/10/2023',
-//     },
-//     {
-//         name: 'Tabungan 1',
-//         deskripsi: 'Diwarung Bu sari',
-//         budget: 10000,
-//         date: '10/10/2023',
-//     },
-//     {
-//         name: 'Tabungan 1',
-//         deskripsi: 'Diwarung Bu sari',
-//         budget: 10000,
-//         date: '10/10/2023',
-//     },
-//     {
-//         name: 'Tabungan 1',
-//         deskripsi: 'Diwarung Bu sari',
-//         budget: 10000,
-//         date: '10/10/2023',
-//     },
-// ]
-//const modalizeRef = useRef(null)
-//const showBs = () => {
-//   modalizeRef.current?.open()
-//    }
+import {alldebt, deleteDebt} from "../services/utang";
 
 const FirstRoute = (props) => {
-
-    const { data } = props
+    const {data, refresh} = props
     const modalizeRef = useRef(null)
+    const selectedIdRef = useRef(0)
     const showBs = () => {
         modalizeRef.current?.open()
     }
@@ -104,7 +32,6 @@ const FirstRoute = (props) => {
     const hideBs = () => {
         modalizeRef.current?.close()
     }
-
 
     const onClickButton = () => {
         alert('Mohon Hubungi Pemilik Dengan Mengirim Pesan Lewat BUKUKASGUS@gmail.com!!');
@@ -116,14 +43,26 @@ const FirstRoute = (props) => {
         navigati.navigate('TambahUtang')
     }
 
-    const navigateDetail = (id) =>{
-        navigati.navigate("Deskripsiutang",{id})
+    const navigateDetail = () => {
+        navigati.navigate("Deskripsiutang", {
+            id: selectedIdRef.current
+        })
     }
+
+    const doDelete = () => {
+        deleteDebt(selectedIdRef.current)
+            .then(() => {
+                ToastAndroid.show("Berhasil hapus data", 1000)
+                hideBs()
+                refresh()
+            })
+    }
+
     return (
         <View style={styles.home}>
-            <View >
-                <Text style={{ color: 'black', fontSize: 16 }}>
-                    Total: {data.totalDebts}
+            <View>
+                <Text style={{color: 'black', fontSize: 16}}>
+                    Total: Rp.{data.totalDebts}
                 </Text>
             </View>
             <View style={styles.scrol}>
@@ -131,20 +70,37 @@ const FirstRoute = (props) => {
                     <FlatList
                         data={data.debt}
                         keyExtractor={(item, index) => index}
-                        renderItem={({ item, index }) => {
+                        renderItem={({item, index}) => {
                             return (
-                                <TouchableOpacity onPress={()=>navigateDetail(item.id)} style={{ borderWidth: 2, borderColor: 'black', backgroundColor: 'white', marginVertical: 5, paddingHorizontal: 10, paddingVertical: 9, paddingTop: 2, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', margin: 3 }}>
-                                    <View style={{ flexDirection: 'row', marginTop: 8 }}>
-                                        <View style={{ marginLeft: 3 }}>
-                                            <Text style={{ color: 'black', fontSize: 16 }}>
+                                <TouchableOpacity
+                                    onPress={() => {
+                                        showBs()
+                                        selectedIdRef.current = item.id
+                                    }}
+                                    style={{
+                                        borderWidth: 2,
+                                        borderColor: 'black',
+                                        backgroundColor: 'white',
+                                        marginVertical: 5,
+                                        paddingHorizontal: 10,
+                                        paddingVertical: 9,
+                                        paddingTop: 2,
+                                        flexDirection: 'row',
+                                        justifyContent: 'space-between',
+                                        alignItems: 'center',
+                                        margin: 3
+                                    }}>
+                                    <View style={{flexDirection: 'row', marginTop: 8}}>
+                                        <View style={{marginLeft: 3}}>
+                                            <Text style={{color: 'black', fontSize: 16}}>
                                                 {item.name}
                                             </Text>
-                                            <Text style={{ color: 'black', fontSize: 16 }}>
+                                            <Text style={{color: 'black', fontSize: 16}}>
                                                 {""}
                                             </Text>
                                             <TouchableOpacity
                                                 onPress={() => onClickButton()}
-                                                style={{ flexDirection: 'row', }}
+                                                style={{flexDirection: 'row',}}
                                             >
                                                 <Icon
                                                     name='left'
@@ -152,15 +108,15 @@ const FirstRoute = (props) => {
                                                     size={20}
                                                     color='black'
                                                 />
-                                                <Text style={{ color: 'black' }}>Deskripsi</Text>
+                                                <Text style={{color: 'black'}}>Deskripsi</Text>
                                             </TouchableOpacity>
                                         </View>
                                     </View>
                                     <View>
-                                        <Text style={{ color: 'black', fontSize: 16, marginTop: 30 }}>
+                                        <Text style={{color: 'black', fontSize: 16, marginTop: 30}}>
                                             Rp. {item.amount}
                                         </Text>
-                                        <Text style={{ color: 'black', fontSize: 16 }}>
+                                        <Text style={{color: 'black', fontSize: 16}}>
                                             {item.due_date}
                                         </Text>
                                     </View>
@@ -168,14 +124,14 @@ const FirstRoute = (props) => {
                             )
                         }}
                         ListEmptyComponent={() => (
-                            <Text style={{ color: 'black' }}>Maff Data sedang di proses</Text>
+                            <Text style={{color: 'black'}}>Maff Data sedang di proses</Text>
                         )}
                     />
                 </ScrollView>
             </View>
             <TouchableOpacity
                 style={styles.fab}
-                onPress={showBs}
+                onPress={tambah}
             >
                 <Icon
                     name="plus"
@@ -189,36 +145,33 @@ const FirstRoute = (props) => {
                 ref={modalizeRef}
                 adjustToContentHeight
             >
-                <View style={styles.fixToText1}>
-                    <View>
-                        <Text style={styles.uploadtextt}>Silahkan Masukan Data Utang:</Text>
-                    </View>
-                    <View style={{flexDirection:'row',justifyContent:'center'}}>
+                <View style={{padding: 16}}>
+                    <Text style={{color: 'black'}}>Pilih Aksi:</Text>
+                    <View style={{flexDirection: 'row', marginTop: 8}}>
                         <TouchableOpacity
-                            onPress={tambah}
+                            onPress={navigateDetail}
                             style={styles.upload}
                         >
-                            <Text style={styles.uploadtext}>Tambah</Text>
+                            <Text style={{color: 'black'}}>Detail</Text>
                         </TouchableOpacity>
                         <TouchableOpacity
-                            onPress={tambah}
+                            onPress={doDelete}
                             style={styles.upload}
                         >
-                            <Text style={styles.uploadtext}>Hapus</Text>
+                            <Text style={{color: 'black'}}>Hapus</Text>
                         </TouchableOpacity>
                     </View>
-
-
                 </View>
             </Modalize>
-        </View >
+        </View>
     )
 };
 
 const SecondRoute = (props) => {
 
-    const { data } = props
+    const {data, refresh} = props
     const modalizeRef = useRef(null)
+    const selectedIdRef = useRef(0)
     const showBs = () => {
         modalizeRef.current?.open()
     }
@@ -235,14 +188,27 @@ const SecondRoute = (props) => {
     const tambah = () => {
         navigati.navigate('TambahUtang')
     }
-    const navigateDetail = (id) =>{
-        navigati.navigate("Deskripsiutang",{id})
+
+    const navigateDetail = () => {
+        navigati.navigate("Deskripsiutang", {
+            id: selectedIdRef.current
+        })
     }
+
+    const doDelete = () => {
+        deleteDebt(selectedIdRef.current)
+            .then(() => {
+                ToastAndroid.show("Berhasil hapus data", 1000)
+                hideBs()
+                refresh()
+            })
+    }
+
     return (
         <View style={styles.home}>
-            <View >
-                <Text style={{ color: 'black', fontSize: 16 }}>
-                    Total: {data.totalDebts}
+            <View>
+                <Text style={{color: 'black', fontSize: 16}}>
+                    Total: Rp.{data.totalDebts}
                 </Text>
             </View>
             <View style={styles.scrol}>
@@ -250,20 +216,37 @@ const SecondRoute = (props) => {
                     <FlatList
                         data={data.debt}
                         keyExtractor={(item, index) => index}
-                        renderItem={({ item, index }) => {
+                        renderItem={({item, index}) => {
                             return (
-                                <TouchableOpacity onPress={()=>navigateDetail(item.id)} style={{ borderWidth: 2, borderColor: 'black', backgroundColor: 'white', marginVertical: 5, paddingHorizontal: 10, paddingVertical: 9, paddingTop: 2, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', margin: 3 }}>
-                                    <View style={{ flexDirection: 'row', marginTop: 8 }}>
-                                        <View style={{ marginLeft: 3 }}>
-                                            <Text style={{ color: 'black', fontSize: 16 }}>
+                                <TouchableOpacity
+                                    onPress={() => {
+                                        showBs()
+                                        selectedIdRef.current = item.id
+                                    }}
+                                    style={{
+                                        borderWidth: 2,
+                                        borderColor: 'black',
+                                        backgroundColor: 'white',
+                                        marginVertical: 5,
+                                        paddingHorizontal: 10,
+                                        paddingVertical: 9,
+                                        paddingTop: 2,
+                                        flexDirection: 'row',
+                                        justifyContent: 'space-between',
+                                        alignItems: 'center',
+                                        margin: 3
+                                    }}>
+                                    <View style={{flexDirection: 'row', marginTop: 8}}>
+                                        <View style={{marginLeft: 3}}>
+                                            <Text style={{color: 'black', fontSize: 16}}>
                                                 {item.name}
                                             </Text>
-                                            <Text style={{ color: 'black', fontSize: 16 }}>
+                                            <Text style={{color: 'black', fontSize: 16}}>
                                                 {""}
                                             </Text>
                                             <TouchableOpacity
                                                 onPress={() => onClickButton()}
-                                                style={{ flexDirection: 'row', }}
+                                                style={{flexDirection: 'row',}}
                                             >
                                                 <Icon
                                                     name='left'
@@ -271,15 +254,15 @@ const SecondRoute = (props) => {
                                                     size={20}
                                                     color='black'
                                                 />
-                                                <Text style={{ color: 'black' }}>Deskripsi</Text>
+                                                <Text style={{color: 'black'}}>Deskripsi</Text>
                                             </TouchableOpacity>
                                         </View>
                                     </View>
                                     <View>
-                                        <Text style={{ color: 'black', fontSize: 16, marginTop: 30 }}>
+                                        <Text style={{color: 'black', fontSize: 16, marginTop: 30}}>
                                             Rp. {item.amount}
                                         </Text>
-                                        <Text style={{ color: 'black', fontSize: 16 }}>
+                                        <Text style={{color: 'black', fontSize: 16}}>
                                             {item.due_date}
                                         </Text>
                                     </View>
@@ -287,14 +270,14 @@ const SecondRoute = (props) => {
                             )
                         }}
                         ListEmptyComponent={() => (
-                            <Text style={{ color: 'black' }}>Maff Data sedang di proses</Text>
+                            <Text style={{color: 'black'}}>Maff Data sedang di proses</Text>
                         )}
                     />
                 </ScrollView>
             </View>
             <TouchableOpacity
                 style={styles.fab}
-                onPress={showBs}
+                onPress={tambah}
             >
                 <Icon
                     name="plus"
@@ -308,17 +291,25 @@ const SecondRoute = (props) => {
                 ref={modalizeRef}
                 adjustToContentHeight
             >
-                <View style={styles.fixToText1}>
-                    <Text style={styles.uploadtextt}>Silahkan Masukan Data Utang:</Text>
-                    <TouchableOpacity
-                        onPress={tambah}
-                        style={styles.upload}
-                    >
-                        <Text style={styles.uploadtext}>Tambah</Text>
-                    </TouchableOpacity>
+                <View style={{padding: 16}}>
+                    <Text style={{color: 'black'}}>Pilih Aksi:</Text>
+                    <View style={{flexDirection: 'row', marginTop: 8}}>
+                        <TouchableOpacity
+                            onPress={navigateDetail}
+                            style={styles.upload}
+                        >
+                            <Text style={{color: 'black'}}>Detail</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            onPress={doDelete}
+                            style={styles.upload}
+                        >
+                            <Text style={{color: 'black'}}>Hapus</Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
             </Modalize>
-        </View >
+        </View>
     )
 };
 
@@ -330,9 +321,9 @@ const renderTabBar = (props) => {
     return (
         <TabBar
             {...props}
-            style={{ backgroundColor: '#6AA84F' }}
-            renderLabel={({ route, focused, color }) => (
-                <View style={[styles.tabbar, { backgroundColor: focused ? 'yellow' : 'gray' }]}>
+            style={{backgroundColor: '#6AA84F'}}
+            renderLabel={({route, focused, color}) => (
+                <View style={[styles.tabbar, {backgroundColor: focused ? 'yellow' : 'gray'}]}>
                     <Text style={styles.tabtitle}>
                         {route.title}
                     </Text>
@@ -354,8 +345,8 @@ const Utang = () => {
 
     const [index, setIndex] = React.useState(0);
     const [routes] = React.useState([
-        { key: 'first', title: 'BULANAN' },
-        { key: 'second', title: 'TAHUNAN' },
+        {key: 'first', title: 'BULANAN'},
+        {key: 'second', title: 'TAHUNAN'},
     ]);
 
     const [debts, setDebts] = useState([])
@@ -374,9 +365,12 @@ const Utang = () => {
         setDebts(debts)
         console.log(date.getFullYear(), date.getMonth())
     }
-    useEffect(() => {
-        allDebt()
-    }, [index, date])
+
+    useFocusEffect(
+        useCallback(() => {
+            allDebt()
+        }, [index, date])
+    )
 
     return (
         <View style={styles.bg}>
@@ -426,17 +420,25 @@ const Utang = () => {
             </View>
             <TabView
                 renderTabBar={renderTabBar}
-                navigationState={{ index, routes }}
-                renderScene={({ route }) => {
+                navigationState={{index, routes}}
+                renderScene={({route}) => {
                     switch (route.key) {
                         case "first":
-                            return <FirstRoute data={debts} />;
+                            return <FirstRoute
+                                data={debts}
+                                refresh={() => {
+                                    allDebt()
+                                }}/>;
                         case "second":
-                            return <SecondRoute data={debts} />;
+                            return <SecondRoute
+                                data={debts}
+                                refresh={() => {
+                                    allDebt()
+                                }}/>;
                     }
                 }}
                 onIndexChange={setIndex}
-                initialLayout={{ width: layout.width }}
+                initialLayout={{width: layout.width}}
             />
         </View>
     )
@@ -552,12 +554,13 @@ const styles = StyleSheet.create({
         paddingHorizontal: 16,
         justifyContent: 'center',
         margin: 10,
+        paddingVertical: 8,
         alignItems: 'center',
-        width: 180,
-        backgroundColor: '#3498db',
-        paddingVertical: 10,
-        paddingHorizontal: 15,
-        borderRadius: 20
+        borderWidth: 1,
+        borderColor: 'black',
+        borderRadius: 12,
+        width: 100,
+        marginVertical: 8
     },
     uploadtext: {
         color: '#ffffff',

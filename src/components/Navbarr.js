@@ -2,10 +2,12 @@ import react from 'react'
 import { View, Text, StyleSheet, TouchableOpacity} from "react-native";
 import { Icon } from "@rneui/themed";
 import { useNavigation } from '@react-navigation/native'
+import {useSelector} from "react-redux";
 
 const Navbar = (props) => {
 
     const nav = useNavigation()
+    const username = useSelector(state => state.userReducer.username)
     const showDrawer = () => {
         nav.goBack()
     }
@@ -63,7 +65,7 @@ const Navbar = (props) => {
                 <Text
                     style={{ color: 'white', fontSize: 20, marginLeft: 8 }}
                 >
-                    User
+                    {username}
                 </Text>
             </View>
         </View>

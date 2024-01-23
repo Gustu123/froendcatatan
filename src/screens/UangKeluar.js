@@ -548,10 +548,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
     },
-    fixToText: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-    },
     fixToText1: {
         flexDirection: 'row',
         justifyContent: 'space-around',

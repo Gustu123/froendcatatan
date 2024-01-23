@@ -9,7 +9,6 @@ import { actionLogout } from "../redux/actions/authAction";
 import { detailtransaction } from "../services/transaksi";
 import { baseUrl } from "../services/baseApi";
 
-
 const Deskripsianggaran = () => {
     const navigati = useNavigation();
 

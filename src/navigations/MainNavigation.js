@@ -74,7 +74,7 @@ const MainNavigation = () => {
                         <Stack.Screen name='Ubahpassword' component={Ubahpassword}></Stack.Screen>
                         <Stack.Screen name='Laporan' component={Laporan}></Stack.Screen>
                         <Stack.Screen name='Anggaran' component={Anggaran}></Stack.Screen>
-                        <Stack.Screen name='Deskripsianggran' component={Deskripsianggaran}></Stack.Screen>
+                        <Stack.Screen name='Deskripsianggaran' component={Deskripsianggaran}></Stack.Screen>
                         <Stack.Screen name='TambahAnggaran' component={TambahAnggaran}></Stack.Screen>
                         <Stack.Screen name='Utang' component={Utang}></Stack.Screen>
                         <Stack.Screen name='Deskripsiutang' component={Deskripsiutang}></Stack.Screen>

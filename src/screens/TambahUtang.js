@@ -29,12 +29,12 @@ const UangKeluar = () => {
     })
     const navigati = useNavigation()
 
-    const doRegis = async (data) => {
+    const doSubmit = async (data) => {
         try {
             const user_id = await AsyncStorage.getItem('user_id')
             const body = {
                 name: data.name,
-                amount: amount,
+                amount: data.amount,
                 due_date: data.due_date,
                 user_id: JSON.parse(user_id)
             }
@@ -63,15 +63,10 @@ const UangKeluar = () => {
         }
 
     }
-    const onSubmit = () => {
-        navigati.navigate('UangKeluar')
-    }
-    const onLoginPress = () => {
+    const handleBack = () => {
         navigati.goBack()
     }
 
-    const [check1, setCheck1] = useState(false);
-    const [check2, setCheck2] = useState(false);
     const [amount, setAmount] = useState(null)
 
     const [date, setDate] = useState(new Date())
@@ -95,12 +90,11 @@ const UangKeluar = () => {
                 <Formik
                     initialValues={initValues}
                     validationSchema={schema}
-                    onSubmit={doRegis}
+                    onSubmit={doSubmit}
                 >
                     {
                         ({
                             handleChange,
-                            handleBlur,
                             handleSubmit,
                             setFieldValue,
                             values,
@@ -182,11 +176,11 @@ const UangKeluar = () => {
                                 <View style={styles.fixToText1}>
                                     <CustomButton
                                         title="Kembali"
-                                        onPress={(onLoginPress)}
+                                        onPress={handleBack}
                                     />
                                     <CustomButton
                                         title="Simpan"
-                                        onPress={(handleSubmit)}
+                                        onPress={handleSubmit}
                                     />
                                 </View>
                             </>
@@ -209,10 +203,6 @@ const styles = StyleSheet.create({
     },
     col: {
         margin: 2,
-    },
-    fixToText: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
     },
     fixToText: {
         flexDirection: 'row',
