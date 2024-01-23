@@ -1,19 +1,21 @@
 import react from 'react'
-import React, { useState, useRef, useEffect } from "react";
-import { View, Text, StyleSheet, TextInput, TouchableOpacity } from "react-native";
-import { Icon } from "@rneui/themed";
-import { useNavigation } from '@react-navigation/native'
+import React, {useState, useRef, useEffect} from "react";
+import {View, Text, StyleSheet, TextInput, TouchableOpacity} from "react-native";
+import {Icon} from "@rneui/themed";
+import {useNavigation} from '@react-navigation/native'
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import {useSelector} from "react-redux";
 
 const Navbar = (props) => {
+    const {title, hasicon = true, search, onSearchChange, onSearchSubmit} = props
 
     const nav = useNavigation()
     const [isshowinput, setInput] = useState(false)
+    const username = useSelector(state => state.userReducer.username)
 
     const showDrawer = () => {
         nav.openDrawer()
     }
-
-    const { title, hasicon = true, search, onSearchChange, onSearchSubmit } = props
 
     return (
         <View
@@ -24,8 +26,8 @@ const Navbar = (props) => {
             }}
             {...props}
         >
-            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
-                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
+                <View style={{flexDirection: 'row', alignItems: 'center'}}>
                     <Icon
                         name="menu"
                         type="material-community"
@@ -34,12 +36,12 @@ const Navbar = (props) => {
                         onPress={showDrawer}
                     />
                     <Text
-                        style={{ color: 'white', fontSize: 20, marginLeft: 8, fontWeight: 'bold' }}
+                        style={{color: 'white', fontSize: 20, marginLeft: 8, fontWeight: 'bold'}}
                     >
                         {title}
                     </Text>
                 </View>
-                <View style={{ flexDirection: 'row', alignItems: 'center', }}>
+                <View style={{flexDirection: 'row', alignItems: 'center',}}>
                     {
                         hasicon
                             ?
@@ -49,7 +51,7 @@ const Navbar = (props) => {
                                 < Icon
                                     name="search"
                                     type="font-awesome"
-                                    style={{ marginRight: 20 }}
+                                    style={{marginRight: 20}}
                                     size={30}
                                     color={'white'}
                                 />
@@ -59,18 +61,18 @@ const Navbar = (props) => {
                     <Icon
                         name="user"
                         type="font-awesome"
-                        style={{ marginRight: 10 }}
+                        style={{marginRight: 10}}
                         size={30}
                         color={'white'}
                     />
                     <Text
-                        style={{ color: 'white', fontSize: 20, marginLeft: 8, fontWeight: 'bold' }}
+                        style={{color: 'white', fontSize: 20, marginLeft: 8, fontWeight: 'bold'}}
                     >
-                        User
+                        {username}
                     </Text>
                 </View></View>
-            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
-                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
+                <View style={{flexDirection: 'row', alignItems: 'center'}}>
                     {
                         isshowinput
                             ?
@@ -114,5 +116,5 @@ const styles = StyleSheet.create({
         width: 390,
         color: 'white'
     },
-    title: { color: 'black', fontSize: 16 }
+    title: {color: 'black', fontSize: 16}
 })

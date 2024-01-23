@@ -18,11 +18,13 @@ import { combineReducers } from 'redux';
 import { authReducer } from './src/redux/reducers/authReducer';
 import { configureStore } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
+import {userReducer} from "./src/redux/reducers/userReducer";
 
 function App(): JSX.Element {
 
   const rootReducer = combineReducers({
-    authReducer
+    authReducer,
+    userReducer
   })
 
   const store = configureStore({

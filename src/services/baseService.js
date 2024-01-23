@@ -18,3 +18,12 @@ export const get = async (route, body) => {
         getErrorMessage(err)
     }
 }
+
+export const deleteAPI = async (route) =>{
+    try {
+        const response = await BaseClient.delete(route)
+        return response.data
+    } catch (err){
+        getErrorMessage(err)
+    }
+}

@@ -1,33 +1,34 @@
 import React from "react";
-import { Icon } from "@rneui/themed";
-import { Button, Text, TextInput, StyleSheet, View, TouchableOpacity } from "react-native";
-import { useState } from "react";
-import { useNavigation } from "@react-navigation/native"
+import {Icon} from "@rneui/themed";
+import {Button, Text, TextInput, StyleSheet, View, TouchableOpacity} from "react-native";
+import {useState} from "react";
+import {useNavigation, useRoute} from "@react-navigation/native"
 import CustomButton from "../components/CustomButtom";
 import * as yup from 'yup'
-import { Formik } from 'formik';
-import { login } from "../services/auth";
-import { useDispatch } from "react-redux";
-import { Alert } from 'react-native';
+import {Formik} from 'formik';
+import {login} from "../services/auth";
+import {useDispatch} from "react-redux";
+import {Alert} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { updatepassword } from "../services/ubahpass";
+import {updatepassword} from "../services/user";
 
 const Ubahpassword = () => {
-    const dispatch = useDispatch()
-    const navigati = useNavigation()
-    const [name, setName] = useState('');
+    const nav = useNavigation()
+    const route = useRoute()
+
+    const {userId} = route.params
+
     const [isShowPass, setIsShowPass] = useState(false)
-    const [isShowPasss, setIsShowPasss] = useState(false)
-    const [password, setPassword] = useState('')
-    
-    const onMasukPress = async (data) => {
+    const [isShowConf, setIsShowConf] = useState(false)
+
+    const onChangePass = async (data) => {
         try {
-            const user_id = await AsyncStorage.getItem('user_id')
             const body = {
                 oldPassword: data.oldPassword,
                 newPassword: data.newPassword,
-                userId: JSON.parse(user_id)
+                userId: userId
             }
+            console.log(body)
             await updatepassword(body)
                 .then(() => {
                     Alert.alert(
@@ -45,7 +46,7 @@ const Ubahpassword = () => {
                             },
                         ],
                     );
-                    navigati.goBack()
+                    nav.goBack()
                 })
 
         } catch (err) {
@@ -60,11 +61,13 @@ const Ubahpassword = () => {
 
     const schema = yup.object().shape({
         oldPassword: yup.string()
-        .min('8')
-        .required("Password tidak boleh kosong"),
-        newPassword: yup.string()
-            .min('8')
+            .min(8)
+            .max(16)
             .required("Password tidak boleh kosong"),
+        newPassword: yup.string()
+            .min(8)
+            .max(16)
+            .required("Password baru tidak boleh kosong"),
     })
     return (
         <View style={style.container}>
@@ -72,56 +75,55 @@ const Ubahpassword = () => {
             <Formik
                 initialValues={initValues}
                 validationSchema={schema}
-                onSubmit={onMasukPress}
+                onSubmit={onChangePass}
             >
                 {
                     ({
-                        handleChange,
-                        handleBlur,
-                        handleSubmit,
-                        values,
-                        errors,
-                        touched
-                    }) => (
+                         handleChange,
+                         handleSubmit,
+                         values,
+                         errors,
+                         touched
+                     }) => (
                         <>
                             <View>
                                 <Text style={style.inputm}>Password Lama:</Text>
                                 <TextInput
                                     onChangeText={handleChange('oldPassword')}
-                                    placeholder='Masukan Passwordlama'
+                                    placeholder='Masukan password lama'
                                     value={values.oldPassword}
                                     style={styles.input}
                                     placeholderTextColor={'gray'}
-                                    secureTextEntry={!isShowPasss}
+                                    secureTextEntry={!isShowConf}
                                 />
                                 {
                                     errors.oldPassword && touched.oldPassword ?
-                                        <Text style={{ color: 'red' }}>{errors.oldPassword}</Text>
+                                        <Text style={{color: 'red'}}>{errors.oldPassword}</Text>
                                         :
                                         null
                                 }
                                 <Icon
-                                        name={!isShowPasss ? "eye-slash" : "eye"}
-                                        type="font-awesome"
-                                        size={25}
-                                        containerStyle={styles.iconn}
-                                        onPress={() => {
-                                            setIsShowPasss(!isShowPasss)
-                                        }}
-                                    />
+                                    name={!isShowConf ? "eye-slash" : "eye"}
+                                    type="font-awesome"
+                                    size={25}
+                                    containerStyle={styles.iconn}
+                                    onPress={() => {
+                                        setIsShowConf(!isShowConf)
+                                    }}
+                                />
                                 <Text style={style.inputp}>Password Baru</Text>
                                 <View style={style.inputContainer}>
                                     <TextInput
                                         onChangeText={handleChange('newPassword')}
-                                        placeholder='Masukan Passwordbaru'
+                                        placeholder='Masukan password baru'
                                         value={values.newPassword}
                                         style={styles.input}
                                         placeholderTextColor={'gray'}
                                         secureTextEntry={!isShowPass}
                                     />
                                     {
-                                        errors.newPassword && touched.newPassword?
-                                            <Text style={{ color: 'red' }}>{errors.newPassword}</Text>
+                                        errors.newPassword && touched.newPassword ?
+                                            <Text style={{color: 'red'}}>{errors.newPassword}</Text>
                                             :
                                             null
                                     }
@@ -137,7 +139,7 @@ const Ubahpassword = () => {
                                 </View>
                             </View>
                             <CustomButton
-                                title="simpan"
+                                title="Ubah Password"
                                 onPress={handleSubmit}
                             />
                         </>

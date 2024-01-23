@@ -1,7 +1,7 @@
 const { default: AsyncStroge } = require("@react-native-async-storage/async-storage");
 const { default: axios }= require("axios");
 
-export const baseUrl = "http://192.168.224.244:8000/"
+export const baseUrl = "http://192.168.1.4:8000/"
 
 const BaseClient = axios.create({
     baseURL: `${baseUrl}api/`

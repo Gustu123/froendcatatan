@@ -1,24 +1,25 @@
 import React from "react";
-import { Icon } from "@rneui/themed";
-import { Button, Text, TextInput, StyleSheet, View, TouchableOpacity } from "react-native";
-import { useState } from "react";
-import { useNavigation } from "@react-navigation/native"
+import {Icon} from "@rneui/themed";
+import {Button, Text, TextInput, StyleSheet, View, TouchableOpacity} from "react-native";
+import {useState} from "react";
+import {useNavigation} from "@react-navigation/native"
 import CustomButton from "../components/CustomButtom";
 import * as yup from 'yup'
-import { Formik } from 'formik';
+import {Formik} from 'formik';
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { login } from "../services/auth";
-import { useDispatch } from "react-redux";
-import { addToken } from "../redux/actions/authAction";
+import {login} from "../services/auth";
+import {useDispatch} from "react-redux";
+import {addToken} from "../redux/actions/authAction";
+import {addUsername} from "../redux/actions/userAction";
 
 const LoginScreen = () => {
     const dispatch = useDispatch()
-    const navigati = useNavigation()
+    const nav = useNavigation()
     const [name, setName] = useState('');
     const [isShowPass, setIsShowPass] = useState(false)
     const [password, setPassword] = useState('')
-    const onClickButton = () => {
-        alert('Mohon Hubungi Pemilik Dengan Mengirim Pesan Lewat BUKUKASGUS@gmail.com!!');
+    const navigateForgot = () => {
+        nav.navigate("Lupapassword")
     };
     const onMasukPress = async (data) => {
         try {
@@ -31,9 +32,9 @@ const LoginScreen = () => {
                 .then((res) => {
                     AsyncStorage.setItem("token", res.token)
                     AsyncStorage.setItem("user_id", JSON.stringify(res.user_id))
-                   dispatch(addToken(res.token))
+                    dispatch(addUsername(res.username))
+                    dispatch(addToken(res.token))
                 })
-
         } catch (err) {
             console.log(`error : ${err}`)
         }
@@ -61,13 +62,13 @@ const LoginScreen = () => {
             >
                 {
                     ({
-                        handleChange,
-                        handleBlur,
-                        handleSubmit,
-                        values,
-                        errors,
-                        touched
-                    }) => (
+                         handleChange,
+                         handleBlur,
+                         handleSubmit,
+                         values,
+                         errors,
+                         touched
+                     }) => (
                         <>
                             <View>
                                 <Text style={style.inputm}>Username</Text>
@@ -75,13 +76,13 @@ const LoginScreen = () => {
                                     onChangeText={handleChange('username')}
                                     placeholder='Masukan Username'
                                     value={values.username}
-                                    style={{ borderWidth: 1, padding: 8, color: 'black' }}
+                                    style={{borderWidth: 1, padding: 8, color: 'black'}}
                                     placeholderTextColor={'gray'}
                                     multiline={false}
                                 />
                                 {
                                     errors.username && touched.username ?
-                                        <Text style={{ color: 'red' }}>{errors.username}</Text>
+                                        <Text style={{color: 'red'}}>{errors.username}</Text>
                                         :
                                         null
                                 }
@@ -97,7 +98,7 @@ const LoginScreen = () => {
                                     />
                                     {
                                         errors.password && touched.password ?
-                                            <Text style={{ color: 'red' }}>{errors.password}</Text>
+                                            <Text style={{color: 'red'}}>{errors.password}</Text>
                                             :
                                             null
                                     }
@@ -112,7 +113,7 @@ const LoginScreen = () => {
                                     />
                                 </View>
                                 <TouchableOpacity
-                                    onPress={() => onClickButton()}
+                                    onPress={navigateForgot}
                                 >
                                     <Text style={style.inputi}>Lupa Password?</Text>
                                 </TouchableOpacity>

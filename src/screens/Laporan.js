@@ -1,25 +1,51 @@
-import { CheckBox, Icon } from "@rneui/themed";
-import React, { useState } from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import {CheckBox, Icon} from "@rneui/themed";
+import React, {useEffect, useState} from "react";
+import {StyleSheet, Text, ToastAndroid, TouchableOpacity, View} from "react-native";
 import DropDownPicker from 'react-native-dropdown-picker';
 import Navbar from "../components/Navbar"
+import {getUser} from "../services/user";
+import {downloadExcel} from "../services/laporan";
 
 const Laporan = () => {
 
     const [isChecked, setIsChecked] = useState(0)
     const [openn, setOpenn] = useState(false)
-    const [value, setValue] = useState(null);
+    const [value, setValue] = useState(1);
     const [items, setItems] = useState([
-        { label: 'Apple', value: 'apple' },
-        { label: 'Banana', value: 'banana' },
-        { label: 'Pear', value: 'pear' },
+        {label: 'Laporan Uang Keluar', value: 1},
+        {label: 'Laporan Uang Masuk', value: 0},
     ]);
 
-    const [check1, setCheck1] = useState(false);
-    const [check2, setCheck2] = useState(false);
+    const [user, setUser] = useState({})
+
+    const doDownload = async () => {
+        if (isChecked == 0) {
+            //download pdf
+
+        } else {
+            //download excel
+            await downloadExcel()
+                .then(()=>{
+                    ToastAndroid.show("Berhasil download laporan", 1000)
+                })
+        }
+    }
+
+    const getUserData = async () => {
+        try {
+            const res = await getUser()
+            setUser(res.user)
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
+    useEffect(() => {
+        getUserData()
+    }, [])
 
     return (
-        <View style={{ flex: 1, backgroundColor: 'white' }}>
+        <View style={{flex: 1, backgroundColor: 'white'}}>
             <Navbar
                 title="Laporan"
                 hasicon={false}
@@ -35,9 +61,9 @@ const Laporan = () => {
                         style={styles.icon}
                     />
                 </View>
-                <View style={{ marginTop: 5 }}>
+                <View style={{marginTop: 5}}>
                     <Text style={styles.text}>Nama User Name:</Text>
-                    <Text style={styles.textt}>Ida Bagus Putu Suartha Wibawa</Text>
+                    <Text style={styles.textt}>{user.name}</Text>
                 </View>
                 <View style={styles.laporann}>
                     <Text style={styles.text}>Laporan:</Text>
@@ -49,15 +75,23 @@ const Laporan = () => {
                         setValue={setValue}
                         setItems={setItems}
                         style={styles.input3}
-                        placeholder={'Laporan Keuangan'}
                     >
                     </DropDownPicker>
                 </View>
             </View>
-            <View style={{ marginTop: 5 }}>
+            <View style={{marginTop: 5}}>
                 <Text style={styles.text}>Format Laporan:</Text>
             </View>
             <View style={styles.laporan}>
+                <CheckBox
+                    size={24}
+                    checkedColor={'red'}
+                    checked={isChecked == 0}
+                    onPress={() => setIsChecked(0)}
+                    checkedIcon='dot-circle-o'
+                    uncheckedIcon={'circle-o'}
+                />
+                <Text style={styles.text1}>PDF</Text>
                 <CheckBox
                     size={24}
                     checkedColor={'red'}
@@ -66,23 +100,14 @@ const Laporan = () => {
                     checkedIcon='dot-circle-o'
                     uncheckedIcon={'circle-o'}
                 />
-                <Text style={styles.text1}>PDF</Text>
-                <CheckBox
-                    size={24}
-                    checkedColor={'red'}
-                    checked={isChecked == 2}
-                    onPress={() => setIsChecked(2)}
-                    checkedIcon='dot-circle-o'
-                    uncheckedIcon={'circle-o'}
-                />
                 <Text style={styles.text1}>EXCEL</Text>
             </View>
             <View style={styles.tombol}>
                 <TouchableOpacity
-                    onPress={() => onClickButton()}
+                    onPress={doDownload}
                     style={styles.upload}
                 >
-                    <Text style={styles.uploadtext}>Upload</Text>
+                    <Text style={styles.uploadtext}>Download</Text>
                 </TouchableOpacity>
             </View>
         </View>

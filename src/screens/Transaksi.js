@@ -523,11 +523,6 @@ const styles = StyleSheet.create({
     scrol: {
         height: 710,
     },
-    title: {
-        textAlign: 'center',
-        marginVertical: 8,
-        color: 'white'
-    },
     fixToText1: {
         flexDirection: 'col',
         justifyContent: 'center',
@@ -538,10 +533,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'flex-end',
         marginTop: -130,
-    },
-    fixToText: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
     },
     input: {
         borderWidth: 1,

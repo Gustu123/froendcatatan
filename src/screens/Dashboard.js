@@ -113,48 +113,6 @@ const renderTabBar = (props) => {
 const Dashboard = (props) => {
 
   const { data } = props
-
-  const dummyData = [
-    {
-      name: 'Tabungan 1',
-      uang: 20000,
-      Image: '../assets/img/logo.png',
-    },
-    {
-      name: 'Tabungan 1',
-      uang: 20000,
-      Image: '../assets/img/logo.png',
-    }, {
-      name: 'Tabungan 1',
-      uang: 20000,
-      Image: '../assets/img/logo.png',
-    }, {
-      name: 'Tabungan 1',
-      uang: 20000,
-      Image: '../assets/img/logo.png',
-    }, {
-      name: 'Tabungan 1',
-      uang: 20000,
-      Image: '../assets/img/logo.png',
-    }, {
-      name: 'Tabungan 1',
-      uang: 20000,
-      Image: '../assets/img/logo.png',
-    }, {
-      name: 'Tabungan 1',
-      uang: 20000,
-      Image: '../assets/img/logo.png',
-    }, {
-      name: 'Tabungan 1',
-      uang: 20000,
-      Image: '../assets/img/logo.png',
-    }, {
-      name: 'Tabungan 1',
-      uang: 20000,
-      Image: '../assets/img/logo.png',
-    },
-  ]
-
   const { initialIndex } = useRoute()
   const layout = useWindowDimensions()
 

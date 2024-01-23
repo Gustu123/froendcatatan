@@ -1,9 +1,9 @@
 import react from 'react'
-import { TouchableOpacity, Text, StyleSheet } from "react-native";
+import {TouchableOpacity, Text, StyleSheet} from "react-native";
 
 const CustomButton = (props) => {
-    const { title } = props
-    
+    const {title} = props
+
     return (
         <TouchableOpacity
             style={styles.container}
@@ -29,9 +29,8 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: 'black',
         borderRadius: 12,
-        width: 100,
         alignSelf: 'center',
         marginVertical: 8
     },
-    title: { color: 'black', fontSize: 16 }
+    title: {color: 'black', fontSize: 16}
 })

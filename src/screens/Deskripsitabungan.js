@@ -1,4 +1,3 @@
-import { CheckBox, Icon } from "@rneui/themed";
 import React, { useEffect, useState, useRef } from "react";
 import { Button, FlatList, Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { useNavigation, useRoute } from '@react-navigation/native'
@@ -8,7 +7,6 @@ import { useDispatch } from "react-redux";
 import { actionLogout } from "../redux/actions/authAction";
 import { detailtransaction } from "../services/transaksi";
 import { baseUrl } from "../services/baseApi";
-
 
 const Deskripsitabungan = () => {
     const navigati = useNavigation();

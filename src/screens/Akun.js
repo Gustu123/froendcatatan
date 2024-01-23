@@ -1,28 +1,45 @@
-import { CheckBox, Icon } from "@rneui/themed";
-import React, { useEffect, useState, useRef } from "react";
-import { Button, FlatList, Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
-import { useNavigation } from '@react-navigation/native'
+import {CheckBox, Icon} from "@rneui/themed";
+import React, {useEffect, useState, useRef} from "react";
+import {Button, FlatList, Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View} from "react-native";
+import {useNavigation} from '@react-navigation/native'
 import Navbar from "../components/Navbar";
 import Custumbuttom from "../components/CustomButtom";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useDispatch } from "react-redux";
-import { actionLogout } from "../redux/actions/authAction";
-
+import {useDispatch} from "react-redux";
+import {actionLogout} from "../redux/actions/authAction";
+import {getUser} from "../services/user";
 
 const Akun = () => {
-    const navigati = useNavigation();
+    const nav = useNavigation()
     const dispatch = useDispatch();
-    const onLoginPress = () => {
-        AsyncStorage.setItem("token", "").then(() => {
-            dispatch(actionLogout())
-        })
-    }
-    const onLoginPass = () => {
-        navigati.navigate('Ubahpassword')
+
+    const [user, setUser] = useState({})
+
+    const getUserData = async () => {
+        try {
+            const res = await getUser()
+            setUser(res.user)
+        } catch (e) {
+            console.log(e)
+        }
     }
 
+    const doLogout = () => {
+
+    }
+
+    const navigateChangePass = () => {
+        nav.navigate("Ubahpassword", {
+            userId: user.id
+        })
+    }
+
+    useEffect(() => {
+        getUserData()
+    }, [])
+
     return (
-        <View style={{ flex: 1 }}>
+        <View style={{flex: 1}}>
             <Navbar
                 title="Akun"
                 hasicon={false}
@@ -37,31 +54,31 @@ const Akun = () => {
                         style={styles.icon}
                     />
                 </View>
-                <View style={{ marginTop: 5 }}>
+                <View style={{marginTop: 5}}>
                     <Text style={styles.text}>Username:</Text>
-                    <Text style={styles.textt}>Gustu</Text>
+                    <Text style={styles.textt}>{user.username}</Text>
                 </View>
-                <View style={{ marginTop: 5 }}></View>
+                <View style={{marginTop: 5}}></View>
                 <Text style={styles.text}>Nama:</Text>
-                <Text style={styles.textt}>Ida Bagus Putu Suartha Wibawa</Text>
+                <Text style={styles.textt}>{user.name}</Text>
             </View>
-            <View style={{ marginTop: 5 }}>
+            <View style={{marginTop: 5}}>
                 <Text style={styles.text}>Email:</Text>
-                <Text style={styles.textt}>Gustune23@gmail.com:</Text>
+                <Text style={styles.textt}>{user.email}</Text>
             </View>
-            <View style={{ marginTop: 5 }}>
+            <View style={{marginTop: 5}}>
                 <Text style={styles.text}>No. Hp:</Text>
-                <Text style={styles.textt}>01030180843</Text>
+                <Text style={styles.textt}>{user.phone}</Text>
             </View>
             <View style={styles.containers}>
                 <TouchableOpacity
-                    onPress={onLoginPress}
+                    onPress={doLogout}
                     style={styles.upload}
                 >
                     <Text style={styles.uploadtext}>Logout</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
-                    onPress={onLoginPass}
+                    onPress={navigateChangePass}
                     style={styles.upload}
                 >
                     <Text style={styles.uploadtext}>Ubah Password</Text>
@@ -108,7 +125,6 @@ const styles = StyleSheet.create({
         width: 180,
         backgroundColor: '#3498db',
         paddingVertical: 15,
-        paddingHorizontal: 25,
         borderRadius: 20
     },
     uploadtext: {

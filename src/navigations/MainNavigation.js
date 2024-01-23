@@ -1,6 +1,5 @@
 import { createStackNavigator } from '@react-navigation/stack';
-import React, { useEffect, useState } from "react";
-import { create } from 'react-test-renderer';
+import React from "react";
 import TopScreen from '../screens/TopScreen';
 import LoginScreen from '../screens/LoginScreen';
 import Lupapassword from '../screens/Lupapassword';
@@ -29,11 +28,7 @@ import Deskripsianggaran from '../screens/Deskripsianggaran';
 import Deskripsitabungan from '../screens/Deskripsitabungan';
 import Deskripsiutang from '../screens/Deskripsiutang';
 
-
-
-
 const Stack = createStackNavigator();
-
 
 const MainNavigation = () => {
 
@@ -63,6 +58,7 @@ const MainNavigation = () => {
                         <Stack.Screen name='LoginScreen' component={LoginScreen}></Stack.Screen>
                         <Stack.Screen name='Lupapassword' component={Lupapassword}></Stack.Screen>
                         <Stack.Screen name='RegisterScreen' component={RegisterScreen}></Stack.Screen>
+                        <Stack.Screen name='ChangePassword' component={Ubahpassword}></Stack.Screen>
                     </>
                     : <>
                         <Stack.Screen name='Drawer' component={MainDrawer}></Stack.Screen>
