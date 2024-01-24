@@ -51,10 +51,10 @@ const FirstRoute = (props) => {
         <View style={styles.home}>
             <View>
                 <Text style={{color: 'black', fontSize: 16}}>
-                    Total Pemasukan: Rp.{data.totalCashIn}
+                    Total Pemasukan: Rp.{data?.totalCashIn?.toLocaleString()}
                 </Text>
                 <Text style={{color: 'black', fontSize: 16}}>
-                    Total Pengeluaran: Rp.{data.totalCashOut}
+                    Total Pengeluaran: Rp.{data?.totalCashOut?.toLocaleString()}
                 </Text>
             </View>
             <View style={{flex: 1}}>
@@ -96,7 +96,7 @@ const FirstRoute = (props) => {
                                     </View>
                                     <View>
                                         <Text style={{color: 'black', fontSize: 16}}>
-                                            Rp. {item.amount}
+                                            Rp. {item?.amount?.toLocaleString()}
                                         </Text>
                                         <Text style={{color: 'black', fontSize: 16}}>
                                             {item.created_at}
@@ -179,10 +179,10 @@ const SecondRoute = (props) => {
         <View style={styles.home}>
             <View>
                 <Text style={{color: 'black', fontSize: 16}}>
-                    Total Pemasukan: Rp.{data.totalCashIn}
+                    Total Pemasukan: Rp.{data?.totalCashIn?.toLocaleString()}
                 </Text>
                 <Text style={{color: 'black', fontSize: 16}}>
-                    Total Pengeluaran: Rp.{data.totalCashOut}
+                    Total Pengeluaran: Rp.{data?.totalCashOut?.toLocaleString()}
                 </Text>
             </View>
             <View style={{flex: 1}}>
@@ -223,7 +223,7 @@ const SecondRoute = (props) => {
                                 </View>
                                 <View>
                                     <Text style={{color: 'black', fontSize: 16}}>
-                                        Rp. {item.amount}
+                                        Rp. {item?.amount?.toLocaleString()}
                                     </Text>
                                     <Text style={{color: 'black', fontSize: 16}}>
                                         {moment(item.created_at).format("YYYY-MM-DD")}

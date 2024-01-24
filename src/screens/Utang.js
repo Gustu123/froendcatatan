@@ -62,7 +62,7 @@ const FirstRoute = (props) => {
         <View style={styles.home}>
             <View>
                 <Text style={{color: 'black', fontSize: 16}}>
-                    Total: Rp.{data.totalDebts}
+                    Total: Rp.{data?.totalDebts?.toLocaleString()}
                 </Text>
             </View>
             <View style={styles.scrol}>
@@ -114,7 +114,7 @@ const FirstRoute = (props) => {
                                     </View>
                                     <View>
                                         <Text style={{color: 'black', fontSize: 16, marginTop: 30}}>
-                                            Rp. {item.amount}
+                                            Rp. {item?.amount?.toLocaleString()}
                                         </Text>
                                         <Text style={{color: 'black', fontSize: 16}}>
                                             {item.due_date}
@@ -208,7 +208,7 @@ const SecondRoute = (props) => {
         <View style={styles.home}>
             <View>
                 <Text style={{color: 'black', fontSize: 16}}>
-                    Total: Rp.{data.totalDebts}
+                    Total: Rp.{data?.totalDebts?.toLocaleString()}
                 </Text>
             </View>
             <View style={styles.scrol}>
@@ -260,7 +260,7 @@ const SecondRoute = (props) => {
                                     </View>
                                     <View>
                                         <Text style={{color: 'black', fontSize: 16, marginTop: 30}}>
-                                            Rp. {item.amount}
+                                            Rp. {item?.amount?.toLocaleString()}
                                         </Text>
                                         <Text style={{color: 'black', fontSize: 16}}>
                                             {item.due_date}

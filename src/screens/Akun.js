@@ -25,7 +25,9 @@ const Akun = () => {
     }
 
     const doLogout = () => {
-
+        AsyncStorage.setItem("token", "").then(() => {
+            dispatch(actionLogout())
+        })
     }
 
     const navigateChangePass = () => {

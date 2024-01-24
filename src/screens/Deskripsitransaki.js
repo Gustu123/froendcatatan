@@ -73,7 +73,7 @@ const Deskripsitransaksi = () => {
             </View>
             <View style={{marginTop: 5}}>
                 <Text style={styles.text}>Amount:</Text>
-                <Text style={styles.textt}>Rp. {deskripsis.amount}</Text>
+                <Text style={styles.textt}>Rp. {deskripsis?.amount?.toLocaleString()}</Text>
             </View>
             <View style={styles.containers}>
                 <TouchableOpacity
