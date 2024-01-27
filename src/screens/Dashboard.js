@@ -205,7 +205,7 @@ const Dashboard = (props) => {
               Data Anggaran
             </Text>
             <Text style={{ color: 'black', fontSize: 16, fontFamily: 'times new roman' }}>
-              Total: Rp.{budgets.totalbudget}
+              Total: Rp.{budgets?.totalbudget?.toLocaleString()}
             </Text>
           </View>
           <ScrollView>
@@ -230,8 +230,7 @@ const Dashboard = (props) => {
                     </View>
                     <View>
                       <Text style={{ color: 'black', fontSize: 16, fontFamily: 'times new roman' }}>
-                        Rp.
-                        {item.amount}
+                        Rp.{item?.amount?.toLocaleString()}
                       </Text>
                     </View>
                   </View>

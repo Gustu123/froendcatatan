@@ -62,7 +62,7 @@ const FirstRoute = (props) => {
         <View style={styles.home}>
             <View>
                 <Text style={{color: 'black', fontSize: 16}}>
-                    Total: Rp.{data.totalDebts}
+                    Total: Rp.{data?.totalDebts?.toLocaleString()}
                 </Text>
             </View>
             <View style={styles.scrol}>
@@ -98,13 +98,27 @@ const FirstRoute = (props) => {
                                             <Text style={{color: 'black', fontSize: 16}}>
                                                 {""}
                                             </Text>
-                                            <Text style={{color: 'black', fontSize: 16, marginTop:-20}}>
-                                            Rp. {item.amount}
+                                            <TouchableOpacity
+                                                onPress={() => onClickButton()}
+                                                style={{flexDirection: 'row',}}
+                                            >
+                                                <Icon
+                                                    name='left'
+                                                    type='antdesign'
+                                                    size={20}
+                                                    color='black'
+                                                />
+                                                <Text style={{color: 'black'}}>Deskripsi</Text>
+                                            </TouchableOpacity>
+                                        </View>
+                                    </View>
+                                    <View>
+                                        <Text style={{color: 'black', fontSize: 16, marginTop: 30}}>
+                                            Rp. {item?.amount?.toLocaleString()}
                                         </Text>
                                         <Text style={{color: 'black', fontSize: 16}}>
                                             {item.due_date}
                                         </Text>
-                                        </View>
                                     </View>
                                 </TouchableOpacity>
                             )
@@ -194,7 +208,7 @@ const SecondRoute = (props) => {
         <View style={styles.home}>
             <View>
                 <Text style={{color: 'black', fontSize: 16}}>
-                    Total: Rp.{data.totalDebts}
+                    Total: Rp.{data?.totalDebts?.toLocaleString()}
                 </Text>
             </View>
             <View style={styles.scrol}>
@@ -230,13 +244,27 @@ const SecondRoute = (props) => {
                                             <Text style={{color: 'black', fontSize: 16}}>
                                                 {""}
                                             </Text>
-                                            <Text style={{color: 'black', fontSize: 16, marginTop:-20}}>
-                                            Rp. {item.amount}
+                                            <TouchableOpacity
+                                                onPress={() => onClickButton()}
+                                                style={{flexDirection: 'row',}}
+                                            >
+                                                <Icon
+                                                    name='left'
+                                                    type='antdesign'
+                                                    size={20}
+                                                    color='black'
+                                                />
+                                                <Text style={{color: 'black'}}>Deskripsi</Text>
+                                            </TouchableOpacity>
+                                        </View>
+                                    </View>
+                                    <View>
+                                        <Text style={{color: 'black', fontSize: 16, marginTop: 30}}>
+                                            Rp. {item?.amount?.toLocaleString()}
                                         </Text>
                                         <Text style={{color: 'black', fontSize: 16}}>
                                             {item.due_date}
                                         </Text>
-                                        </View>
                                     </View>
                                 </TouchableOpacity>
                             )

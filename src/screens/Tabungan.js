@@ -80,7 +80,7 @@ const Tabungan = (props) => {
                                             {item.name}
                                         </Text>
                                         <Text style={{color: 'black', fontSize: 16}}>
-                                            Rp. {item.total_amount}
+                                            Rp. {item?.total_amount?.toLocaleString()}
                                         </Text>
                                         <Text style={{color: 'black', fontSize: 16}}>
                                             {""}
