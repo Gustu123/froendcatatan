@@ -1,6 +1,5 @@
-import React from "react";
 import { Icon } from "@rneui/themed";
-import { ScrollView, Text, TextInput, StyleSheet, View, } from "react-native";
+import { ScrollView, Text, TextInput, StyleSheet, View, Alert, } from "react-native";
 import { useState } from "react";
 import { useNavigation } from "@react-navigation/native"
 import * as yup from 'yup'
@@ -30,6 +29,21 @@ const RegisterScreen = () => {
             }
             await register(body)
                 .then(() => {
+                    Alert.alert(
+                        'Konfirmasi',
+                        'Data berhasil disimpan',
+                        [
+                            {
+                                text: 'Cancel',
+                                onPress: () => console.log('Cancel pressed'),
+                                style: 'cancel',
+                            },
+                            {
+                                text: 'OK',
+                                onPress: () => console.log('OK pressed'),
+                            },
+                        ],
+                    );
                     navigati.goBack()
                 })
 
@@ -62,117 +76,117 @@ const RegisterScreen = () => {
             .required("Gmail tidak boleh kosong"),
     })
     return (
-        <View style= {{paddingTop: 30}}>
-        <ScrollView>
-            <Text style={styles.inputj}>Daftar</Text>
-            <View style={style.container}>
-                <Text style={style.inputp}>Nama Pengguna</Text>
-                <Formik
-                    initialValues={initValues}
-                    validationSchema={schema}
-                    onSubmit={doRegis}
-                >
-                    {
-                        ({
-                            handleChange,
-                            handleBlur,
-                            handleSubmit,
-                            values,
-                            errors,
-                            touched
-                        }) => (
-                            <>
-                                <TextInput
-                                    onChangeText={handleChange('name')}
-                                    placeholder='masukan nama pengguna'
-                                    value={values.name}
-                                    placeholderTextColor={'gray'}
-                                    style={{ borderWidth: 1, padding: 8, color: 'black' }}
-                                    multiline={false}
-                                />
-                                {
-                                    errors.name && touched.name ?
-                                        <Text style={{ color: 'red' }}>{errors.name}</Text>
-                                        :
-                                        null
-                                }
-                                <Text style={style.inputt}>Username</Text>
-                                <TextInput
-                                    onChangeText={handleChange('username')}
-                                    value={values.username}
-                                    style={{ borderWidth: 1, padding: 8, color: 'black' }}
-                                    placeholderTextColor={'gray'}
-                                    placeholder="masukan nomor username"
-                                />
-                                {
-                                    errors.username && touched.username ?
-                                        <Text style={{ color: 'red' }}>{errors.username}</Text>
-                                        :
-                                        null
-                                }
-                                <Text style={style.inputt}>Nomor Telepon</Text>
-                                <TextInput
-                                    onChangeText={handleChange('phone')}
-                                    value={values.phone}
-                                    style={{ borderWidth: 1, padding: 8, color: 'black' }}
-                                    placeholderTextColor={'gray'}
-                                    placeholder="masukan nomor telephone"
-                                    keyboardType="numeric"
-                                />
-                                {
-                                    errors.phone && touched.phone ?
-                                        <Text style={{ color: 'red' }}>{errors.phone}</Text>
-                                        :
-                                        null
-                                }
-                                <Text style={style.inputpk}>Kata Sandi</Text>
-                                <View style={style.inputContainer}>
+        <View style={{ paddingTop: 30 }}>
+            <ScrollView>
+                <Text style={styles.inputj}>Daftar</Text>
+                <View style={style.container}>
+                    <Text style={style.inputp}>Nama Pengguna</Text>
+                    <Formik
+                        initialValues={initValues}
+                        validationSchema={schema}
+                        onSubmit={doRegis}
+                    >
+                        {
+                            ({
+                                handleChange,
+                                handleBlur,
+                                handleSubmit,
+                                values,
+                                errors,
+                                touched
+                            }) => (
+                                <>
                                     <TextInput
-                                        onChangeText={handleChange('password')}
-                                        placeholder='masukan kata sandi'
-                                        value={values.password}
-                                        style={styles.input}
+                                        onChangeText={handleChange('name')}
+                                        placeholder='masukan nama pengguna'
+                                        value={values.name}
                                         placeholderTextColor={'gray'}
-                                        secureTextEntry={!isShowPass}
+                                        style={{ borderWidth: 1, padding: 8, color: 'black' }}
+                                        multiline={false}
                                     />
                                     {
-                                        errors.password && touched.password ?
-                                            <Text style={{ color: 'red' }}>{errors.password}</Text>
+                                        errors.name && touched.name ?
+                                            <Text style={{ color: 'red' }}>{errors.name}</Text>
                                             :
                                             null
                                     }
-                                    <Icon
-                                        name={!isShowPass ? "eye-slash" : "eye"}
-                                        type="font-awesome"
-                                        size={25}
-                                        containerStyle={styles.icon}
-                                        onPress={() => {
-                                            setIsShowPass(!isShowPass)
-                                        }}
+                                    <Text style={style.inputt}>Username</Text>
+                                    <TextInput
+                                        onChangeText={handleChange('username')}
+                                        value={values.username}
+                                        style={{ borderWidth: 1, padding: 8, color: 'black' }}
+                                        placeholderTextColor={'gray'}
+                                        placeholder="masukan nomor username"
                                     />
-                                </View>
-                                <Text style={style.inputg}>Masukan Gmail</Text>
-                                <TextInput
-                                    onChangeText={handleChange('email')}
-                                    placeholder='masukan gmali'
-                                    value={values.email}
-                                    placeholderTextColor={'gray'}
-                                    style={{ borderWidth: 1, padding: 8, color: 'black' }}
-                                    multiline={false}
-                                />
-                                {
-                                    errors.email && touched.email ?
-                                        <Text style={{ color: 'red' }}>{errors.email}</Text>
-                                        :
-                                        null
-                                }
-                                <CustomButton title="Daftar"
-                                    onPress={handleSubmit}></CustomButton>
-                            </>
-                        )
-                    }
-                </Formik>
-            </View>
+                                    {
+                                        errors.username && touched.username ?
+                                            <Text style={{ color: 'red' }}>{errors.username}</Text>
+                                            :
+                                            null
+                                    }
+                                    <Text style={style.inputt}>Nomor Telepon</Text>
+                                    <TextInput
+                                        onChangeText={handleChange('phone')}
+                                        value={values.phone}
+                                        style={{ borderWidth: 1, padding: 8, color: 'black' }}
+                                        placeholderTextColor={'gray'}
+                                        placeholder="masukan nomor telephone"
+                                        keyboardType="numeric"
+                                    />
+                                    {
+                                        errors.phone && touched.phone ?
+                                            <Text style={{ color: 'red' }}>{errors.phone}</Text>
+                                            :
+                                            null
+                                    }
+                                    <Text style={style.inputpk}>Kata Sandi</Text>
+                                    <View style={style.inputContainer}>
+                                        <TextInput
+                                            onChangeText={handleChange('password')}
+                                            placeholder='masukan kata sandi'
+                                            value={values.password}
+                                            style={styles.input}
+                                            placeholderTextColor={'gray'}
+                                            secureTextEntry={!isShowPass}
+                                        />
+                                        {
+                                            errors.password && touched.password ?
+                                                <Text style={{ color: 'red' }}>{errors.password}</Text>
+                                                :
+                                                null
+                                        }
+                                        <Icon
+                                            name={!isShowPass ? "eye-slash" : "eye"}
+                                            type="font-awesome"
+                                            size={25}
+                                            containerStyle={styles.icon}
+                                            onPress={() => {
+                                                setIsShowPass(!isShowPass)
+                                            }}
+                                        />
+                                    </View>
+                                    <Text style={style.inputg}>Masukan Gmail</Text>
+                                    <TextInput
+                                        onChangeText={handleChange('email')}
+                                        placeholder='masukan gmali'
+                                        value={values.email}
+                                        placeholderTextColor={'gray'}
+                                        style={{ borderWidth: 1, padding: 8, color: 'black' }}
+                                        multiline={false}
+                                    />
+                                    {
+                                        errors.email && touched.email ?
+                                            <Text style={{ color: 'red' }}>{errors.email}</Text>
+                                            :
+                                            null
+                                    }
+                                    <CustomButton title="Daftar"
+                                        onPress={handleSubmit}></CustomButton>
+                                </>
+                            )
+                        }
+                    </Formik>
+                </View>
             </ScrollView>
         </View>
     )

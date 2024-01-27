@@ -6,6 +6,9 @@ export const budget = (data) => {
 export const allbudget = (params) => {
     return get('budget', params)
 }
+export const detailbudget = (id) => {
+    return get(`transaction/${id}`)
+}
 
 export const deleteBudget = (id) => {
     return deleteAPI(`budget/${id}`)

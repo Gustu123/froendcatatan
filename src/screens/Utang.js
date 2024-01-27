@@ -98,33 +98,19 @@ const FirstRoute = (props) => {
                                             <Text style={{color: 'black', fontSize: 16}}>
                                                 {""}
                                             </Text>
-                                            <TouchableOpacity
-                                                onPress={() => onClickButton()}
-                                                style={{flexDirection: 'row',}}
-                                            >
-                                                <Icon
-                                                    name='left'
-                                                    type='antdesign'
-                                                    size={20}
-                                                    color='black'
-                                                />
-                                                <Text style={{color: 'black'}}>Deskripsi</Text>
-                                            </TouchableOpacity>
-                                        </View>
-                                    </View>
-                                    <View>
-                                        <Text style={{color: 'black', fontSize: 16, marginTop: 30}}>
+                                            <Text style={{color: 'black', fontSize: 16, marginTop:-20}}>
                                             Rp. {item.amount}
                                         </Text>
                                         <Text style={{color: 'black', fontSize: 16}}>
                                             {item.due_date}
                                         </Text>
+                                        </View>
                                     </View>
                                 </TouchableOpacity>
                             )
                         }}
                         ListEmptyComponent={() => (
-                            <Text style={{color: 'black'}}>Maff Data sedang di proses</Text>
+                            <Text style={{color: 'black', fontSize: 20, textAlign: 'center'}}>Maff Data Kosong</Text>
                         )}
                     />
                 </ScrollView>
@@ -244,27 +230,13 @@ const SecondRoute = (props) => {
                                             <Text style={{color: 'black', fontSize: 16}}>
                                                 {""}
                                             </Text>
-                                            <TouchableOpacity
-                                                onPress={() => onClickButton()}
-                                                style={{flexDirection: 'row',}}
-                                            >
-                                                <Icon
-                                                    name='left'
-                                                    type='antdesign'
-                                                    size={20}
-                                                    color='black'
-                                                />
-                                                <Text style={{color: 'black'}}>Deskripsi</Text>
-                                            </TouchableOpacity>
-                                        </View>
-                                    </View>
-                                    <View>
-                                        <Text style={{color: 'black', fontSize: 16, marginTop: 30}}>
+                                            <Text style={{color: 'black', fontSize: 16, marginTop:-20}}>
                                             Rp. {item.amount}
                                         </Text>
                                         <Text style={{color: 'black', fontSize: 16}}>
                                             {item.due_date}
                                         </Text>
+                                        </View>
                                     </View>
                                 </TouchableOpacity>
                             )

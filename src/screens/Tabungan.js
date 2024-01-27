@@ -90,7 +90,7 @@ const Tabungan = (props) => {
                             )
                         }}
                         ListEmptyComponent={() => (
-                            <Text style={{color: 'black'}}>Maaf Data sedang di proses</Text>
+                            <Text style={{color: 'black'}}>Maff Data sedang di proses</Text>
                         )}
                     />
                 </ScrollView>

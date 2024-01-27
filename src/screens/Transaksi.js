@@ -79,12 +79,12 @@ const FirstRoute = (props) => {
                                     margin: 2,
                                 }}>
                                     <View style={{flexDirection: 'row',}}>
-                                        <View>
+                                        {/* <View>
                                             <Image
                                                 source={item.Image}
                                                 style={{width: 40, height: 40,}}
                                             />
-                                        </View>
+                                        </View> */}
                                         <View style={{marginLeft: 3}}>
                                             <Text style={{color: 'black', fontSize: 16}}>
                                                 {item.name}
@@ -96,7 +96,7 @@ const FirstRoute = (props) => {
                                     </View>
                                     <View>
                                         <Text style={{color: 'black', fontSize: 16}}>
-                                            Rp. {item.amount}
+                                        {item.cash_out ?? '-'}Rp. {item.amount}
                                         </Text>
                                         <Text style={{color: 'black', fontSize: 16}}>
                                             {item.created_at}
@@ -106,7 +106,7 @@ const FirstRoute = (props) => {
                             )
                         }}
                         ListEmptyComponent={() => (
-                            <Text style={{color: 'black'}}>Kosong Bos</Text>
+                            <Text style={{color: 'black'}}>Maff Data sedang di proses</Text>
                         )}
                     />
                 </ScrollView>
@@ -206,12 +206,12 @@ const SecondRoute = (props) => {
                                 margin: 2,
                             }}>
                                 <View style={{flexDirection: 'row',}}>
-                                    <View>
+                                    {/* <View>
                                         <Image
                                             source={item.Image}
                                             style={{width: 40, height: 40,}}
                                         />
-                                    </View>
+                                    </View> */}
                                     <View style={{marginLeft: 3}}>
                                         <Text style={{color: 'black', fontSize: 16}}>
                                             {item.name}
@@ -233,7 +233,7 @@ const SecondRoute = (props) => {
                         )
                     }}
                     ListEmptyComponent={() => (
-                        <Text style={{color: 'black'}}>Kosong Bos</Text>
+                        <Text style={{color: 'black'}}>Maff Data sedang di proses</Text>
                     )}
                 />
                 {/* </ScrollView> */}

@@ -76,13 +76,13 @@ const FirstRoute = (props) => {
                                         margin: 3
                                     }}>
                                     <View style={{flexDirection: 'row', marginTop: 8}}>
-                                        <View>
+                                        {/* <View>
                                             <Image
                                                 source={{uri: ""}}
                                                 style={{width: 40, height: 40,}}
                                             />
-                                        </View>
-                                        <View style={{marginLeft: 3}}>
+                                        </View> */}
+                                        <View style={{marginLeft: 3, marginTop: -20}}>
                                             <Text style={{color: 'black', fontSize: 16}}>
                                                 {item.name}
                                             </Text>
@@ -92,18 +92,6 @@ const FirstRoute = (props) => {
                                             <Text style={{color: 'black', fontSize: 16}}>
                                                 Rp. {""}
                                             </Text>
-                                            <TouchableOpacity
-                                                onPress={() => onClickButton()}
-                                                style={{flexDirection: 'row',}}
-                                            >
-                                                <Icon
-                                                    name='left'
-                                                    type='antdesign'
-                                                    size={20}
-                                                    color='black'
-                                                />
-                                                <Text style={{color: 'black'}}>Button</Text>
-                                            </TouchableOpacity>
                                         </View>
                                     </View>
                                     <View>
@@ -122,7 +110,7 @@ const FirstRoute = (props) => {
                             )
                         }}
                         ListEmptyComponent={() => (
-                            <Text style={{color: 'black'}}>Maff Data sedang di proses</Text>
+                            <Text style={{color: 'black', fontSize: 20, textAlign: 'center'}}>Maff Data Kosong</Text>
                         )}
                     />
                 </ScrollView>
@@ -221,13 +209,14 @@ const SecondRoute = (props) => {
                                         margin: 3
                                     }}>
                                     <View style={{flexDirection: 'row', marginTop: 8}}>
-                                        <View>
+                                        {/* <View>
                                             <Image
                                                 source={{uri: ""}}
                                                 style={{width: 40, height: 40,}}
                                             />
-                                        </View>
-                                        <View style={{marginLeft: 3}}>
+                                        </View> */}
+                                        <View style={{marginLeft: 3, marginTop: -20
+                                        }}>
                                             <Text style={{color: 'black', fontSize: 16}}>
                                                 {item.name}
                                             </Text>
@@ -237,18 +226,6 @@ const SecondRoute = (props) => {
                                             <Text style={{color: 'black', fontSize: 16}}>
                                                 Rp. {""}
                                             </Text>
-                                            <TouchableOpacity
-                                                onPress={() => onClickButton()}
-                                                style={{flexDirection: 'row',}}
-                                            >
-                                                <Icon
-                                                    name='left'
-                                                    type='antdesign'
-                                                    size={20}
-                                                    color='black'
-                                                />
-                                                <Text style={{color: 'black'}}>Button</Text>
-                                            </TouchableOpacity>
                                         </View>
                                     </View>
                                     <View>
@@ -267,7 +244,7 @@ const SecondRoute = (props) => {
                             )
                         }}
                         ListEmptyComponent={() => (
-                            <Text style={{color: 'black'}}>Maff Data sedang di proses</Text>
+                            <Text style={{color: 'black', fontSize: 20, textAlign: 'center'}}>Maff Data Kosong</Text>
                         )}
                     />
                 </ScrollView>

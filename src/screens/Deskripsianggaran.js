@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import { actionLogout } from "../redux/actions/authAction";
 import { detailtransaction } from "../services/transaksi";
 import { baseUrl } from "../services/baseApi";
+import { detailbudget } from "../services/anggaran";
 
 const Deskripsianggaran = () => {
     const navigati = useNavigation();
@@ -24,7 +25,7 @@ const Deskripsianggaran = () => {
 
     const [deskripsis, setDeskripsis] = useState({})
     const allDeskripsi = async () => {
-        const deskripsis = await detailtransaction(id)
+        const deskripsis = await detailbudget(id)
         setDeskripsis(deskripsis)
     }
 
@@ -48,15 +49,17 @@ const Deskripsianggaran = () => {
                 </View>
                 <View style={{ marginTop: 5 }}>
                     <Text style={styles.text}>Name:</Text>
-                    <Text style={styles.textt}>Ida Bagus Putu Suartha Wibawa</Text>
+                    <Text style={styles.textt}>{deskripsis.name}</Text>
                 </View>
                 <View style={{ marginTop: 5 }}>
                     <Text style={styles.text}>Amount:</Text>
-                    <Text style={styles.textt}>Gustune23@gmail.com:</Text>
+                    <Text style={styles.textt}>{deskripsis.amount}</Text>
                 </View>
                 <View style={{ marginTop: 5 }}>
-                    <Text style={styles.text}>Jenis Anggaran:</Text>
-                    <Text style={styles.textt}>Gustune23@gmail.com:</Text>
+                    <Text style={styles.text}>Batas Anggaran:</Text>
+                    <Text style={{ color: 'black', fontSize: 16 }}>
+                        {deskripsis.expride_date}
+                    </Text>
                 </View>
             </View>
             <View style={styles.containers}>
@@ -64,7 +67,7 @@ const Deskripsianggaran = () => {
                     onPress={onLoginPress}
                     style={styles.upload}
                 >
-                    <Text style={styles.uploadtext}>Logout</Text>
+                    <Text style={styles.uploadtext}>Kembali</Text>
                 </TouchableOpacity>
             </View>
         </View>

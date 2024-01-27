@@ -5,8 +5,8 @@ import Navbar from "../components/Navbarr";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useDispatch } from "react-redux";
 import { actionLogout } from "../redux/actions/authAction";
-import { detailtransaction } from "../services/transaksi";
 import { baseUrl } from "../services/baseApi";
+import { detailwallet } from "../services/tabungan";
 
 const Deskripsitabungan = () => {
     const navigati = useNavigation();
@@ -16,14 +16,12 @@ const Deskripsitabungan = () => {
 
     const dispatch = useDispatch();
     const onLoginPress = () => {
-        AsyncStorage.setItem("token", "").then(() => {
-            dispatch(actionLogout())
-        })
+        navigati.goBack
     }
 
     const [deskripsis, setDeskripsis] = useState({})
     const allDeskripsi = async () => {
-        const deskripsis = await detailtransaction(id)
+        const deskripsis = await detailwallet(id)
         setDeskripsis(deskripsis)
     }
 
@@ -47,18 +45,18 @@ const Deskripsitabungan = () => {
                 </View>
                 <View style={{ marginTop: 5 }}>
                     <Text style={styles.text}>Name:</Text>
-                    <Text style={styles.textt}>Ida Bagus Putu Suartha Wibawa</Text>
+                    <Text style={styles.textt}>{deskripsis.name}</Text>
                 </View>
                 <View style={{ marginTop: 5 }}></View>
                 <Text style={styles.text}>Total Tabungan:</Text>
-                <Text style={styles.textt}>Gustune23@gmail.com:</Text>
+                <Text style={styles.textt}>{deskripsis.total_amount}</Text>
             </View>
             <View style={styles.containers}>
                 <TouchableOpacity
                     onPress={onLoginPress}
                     style={styles.upload}
                 >
-                    <Text style={styles.uploadtext}>Logout</Text>
+                    <Text style={styles.uploadtext}>Kembali</Text>
                 </TouchableOpacity>
             </View>
         </View>

@@ -58,7 +58,7 @@ const FirstRoute = (props) => {
       population: data?.persentaseIn ?? 0,
       color: "rgba(131, 167, 234, 1)",
       legendFontColor: "#7F7F7F",
-      legendFontSize: 15
+      legendFontSize: 15,
     },
     {
       name: "Uang Keluar",
@@ -66,11 +66,11 @@ const FirstRoute = (props) => {
       color: "#F00",
       legendFontColor: "#7F7F7F",
       legendFontSize: 15
-  },
+    },
   ]
 
   return (
-    <View style={{ flex: 1, backgroundColor: ' white' }}>
+    <View style={{ flex: 1, backgroundColor: ' white'}}>
       <PieChart
         data={persentase}
         width={screenWidth}
@@ -80,6 +80,14 @@ const FirstRoute = (props) => {
         backgroundColor={"white"}
         paddingLeft={"15"}
       />
+      <View style={{marginTop: -50, paddingLeft:200}}>
+        <Text style={{ color: 'black', fontSize: 16, fontFamily: 'times new roman' }}>
+          Total Uang Keluar: {data.totalCashOut}
+        </Text>
+        <Text style={{ color: 'black', fontSize: 16, fontFamily: 'times new roman' }}>
+          Total Uang Masuk: {data.totalCashIn}
+        </Text>
+      </View>
 
     </View>
   )
@@ -190,8 +198,8 @@ const Dashboard = (props) => {
         onIndexChange={setIndex}
         initialLayout={{ width: layout.width }}
       />
-      <View style={{ backgroundColor: '#f9f6f2', flex: 1 }}>
-        <View style={{ height: 250, backgroundColor: '#fffff', borderWidth: 2, marginTop: 15, borderColor: 'black', }}>
+      <View style={{ flex:1, backgroundColor: '#f9f6f2' }}>
+        <View style={{ height: 250, backgroundColor: '#fffff', borderWidth: 2, paddingTop: -10, borderColor: 'black', }}>
           <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 5, }}>
             <Text style={{ color: 'black', fontSize: 16, fontFamily: 'times new roman' }}>
               Data Anggaran
@@ -208,12 +216,12 @@ const Dashboard = (props) => {
                 return (
                   <View style={{ borderWidth: 2, borderColor: 'black', backgroundColor: 'white', marginVertical: 5, paddingHorizontal: 10, paddingVertical: 9, paddingTop: 2, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', margin: 3 }}>
                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                      <View>
+                      {/* <View>
                         <Image
                           source={item.Image}
                           style={{ width: 40, height: 40, }}
                         />
-                      </View>
+                      </View> */}
                       <View>
                         <Text style={{ color: 'black', fontSize: 16, fontFamily: 'times new roman' }}>
                           {item.name}

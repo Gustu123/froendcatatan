@@ -34,7 +34,7 @@ const UangKeluar = () => {
             const user_id = await AsyncStorage.getItem('user_id')
             const body = {
                 name: data.name,
-                amount: data.amount,
+                amount: amount,
                 due_date: data.due_date,
                 user_id: JSON.parse(user_id)
             }
