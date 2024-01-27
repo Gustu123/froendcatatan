@@ -4,7 +4,7 @@ import {StyleSheet, Text, ToastAndroid, TouchableOpacity, View} from "react-nati
 import DropDownPicker from 'react-native-dropdown-picker';
 import Navbar from "../components/Navbar"
 import {getUser} from "../services/user";
-import {downloadExcel} from "../services/laporan";
+import {downloadExcel, downloadPdf} from "../services/laporan";
 
 const Laporan = () => {
 
@@ -21,10 +21,14 @@ const Laporan = () => {
     const doDownload = async () => {
         if (isChecked == 0) {
             //download pdf
+            await downloadPdf(value == 1 ? '1' : '0')
+                .then(()=>{
+                    ToastAndroid.show("Berhasil download laporan", 1000)
+                })
 
         } else {
             //download excel
-            await downloadExcel()
+            await downloadExcel(value == 1 ? '1' : '0')
                 .then(()=>{
                     ToastAndroid.show("Berhasil download laporan", 1000)
                 })
