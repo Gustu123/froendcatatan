@@ -99,14 +99,14 @@ const FirstRoute = (props) => {
                                             Rp. {item?.amount?.toLocaleString()}
                                         </Text>
                                         <Text style={{ color: 'black', fontSize: 16 }}>
-                                            {item.created_at}
+                                            {moment(item.created_at).format("YYYY-MM-DD")}
                                         </Text>
                                     </View>
                                 </TouchableOpacity>
                             )
                         }}
                         ListEmptyComponent={() => (
-                            <Text style={{ color: 'black' }}>Maff Data sedang di proses</Text>
+                            <Text style={{ color: 'black', fontSize: 20, textAlign: 'center' }}>Maff Data Kosong</Text>
                         )}
                     />
                 </ScrollView>
@@ -225,8 +225,9 @@ const SecondRoute = (props) => {
                                     <Text style={{ color: 'black', fontSize: 16 }}>
                                         {
                                             item?.cash_out != 1 ?
-                                                `-Rp.${item?.amount?.toLocaleString()}`
-                                                : `Rp.${item?.amount?.toLocaleString()}`}
+                                                `Rp.${item?.amount?.toLocaleString()}`
+                                                : `-Rp.${item?.amount?.toLocaleString()}`
+                                        }
                                     </Text>
                                     <Text style={{ color: 'black', fontSize: 16 }}>
                                         {moment(item.created_at).format("YYYY-MM-DD")}
@@ -236,7 +237,7 @@ const SecondRoute = (props) => {
                         )
                     }}
                     ListEmptyComponent={() => (
-                        <Text style={{ color: 'black' }}>Maff Data sedang di proses</Text>
+                        <Text style={{ color: 'black', fontSize: 20, textAlign: 'center' }}>Maff Data Kosong</Text>
                     )}
                 />
                 {/* </ScrollView> */}

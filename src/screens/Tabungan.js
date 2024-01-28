@@ -34,7 +34,7 @@ const Tabungan = (props) => {
     const navigateDetail = () => {
         navigati.navigate("Deskripsitabungan", {
             id: selectedId
-        })
+        })  
     }
 
     useFocusEffect(
@@ -90,7 +90,7 @@ const Tabungan = (props) => {
                             )
                         }}
                         ListEmptyComponent={() => (
-                            <Text style={{color: 'black'}}>Maff Data sedang di proses</Text>
+                            <Text style={{ color: 'black', fontSize: 20, textAlign: 'center' }}>Maff Data Kosong</Text>
                         )}
                     />
                 </ScrollView>
@@ -117,12 +117,12 @@ const Tabungan = (props) => {
                 <View style={{padding: 16}}>
                     <Text style={styles.uploadtext}>Pilih Aksi:</Text>
                     <View style={{flexDirection: 'row', marginTop: 8}}>
-                        <TouchableOpacity
+                        {/* <TouchableOpacity
                             onPress={navigateDetail}
                             style={styles.upload}
                         >
                             <Text style={styles.uploadtext}>Detail</Text>
-                        </TouchableOpacity>
+                        </TouchableOpacity> */}
                         <TouchableOpacity
                             onPress={doDelete}
                             style={styles.upload}

@@ -75,34 +75,34 @@ const FirstRoute = (props) => {
                                         alignItems: 'center',
                                         margin: 3
                                     }}>
-                                    <View style={{flexDirection: 'row', marginTop: 8}}>
+                                    <View style={{flexDirection: 'row'}}>
                                         {/* <View>
                                             <Image
                                                 source={{uri: ""}}
                                                 style={{width: 40, height: 40,}}
                                             />
                                         </View> */}
-                                        <View style={{marginLeft: 3, marginTop: -20}}>
+                                        <View style={{marginLeft: 3}}>
                                             <Text style={{color: 'black', fontSize: 16}}>
                                                 {item.name}
                                             </Text>
                                             <Text style={{color: 'black', fontSize: 16}}>
                                                 Budget: Rp. {item?.amount?.toLocaleString()}
                                             </Text>
-                                            <Text style={{color: 'black', fontSize: 16}}>
+                                            {/* <Text style={{color: 'black', fontSize: 16}}>
                                                 Rp. {""}
-                                            </Text>
+                                            </Text> */}
                                         </View>
                                     </View>
                                     <View>
-                                        <Text style={{color: 'black', fontSize: 16}}>
+                                        {/* <Text style={{color: 'black', fontSize: 16}}>
                                             {""}
                                         </Text>
                                         <Text style={{color: 'black', fontSize: 16, marginTop: 30}}>
                                             Rp.
                                             {""}
-                                        </Text>
-                                        <Text style={{color: 'black', fontSize: 16}}>
+                                        </Text> */}
+                                        <Text style={{color: 'black', fontSize: 16, marginTop: 50}}>
                                             {item.expride_date}
                                         </Text>
                                     </View>
@@ -208,35 +208,34 @@ const SecondRoute = (props) => {
                                         alignItems: 'center',
                                         margin: 3
                                     }}>
-                                    <View style={{flexDirection: 'row', marginTop: 8}}>
+                                    <View style={{flexDirection: 'row',}}>
                                         {/* <View>
                                             <Image
                                                 source={{uri: ""}}
                                                 style={{width: 40, height: 40,}}
                                             />
                                         </View> */}
-                                        <View style={{marginLeft: 3, marginTop: -20
-                                        }}>
+                                        <View style={{marginLeft: 3}}>
                                             <Text style={{color: 'black', fontSize: 16}}>
                                                 {item.name}
                                             </Text>
                                             <Text style={{color: 'black', fontSize: 16}}>
                                                 Budget: Rp. {item?.amount?.toLocaleString()}
                                             </Text>
-                                            <Text style={{color: 'black', fontSize: 16}}>
+                                            {/* <Text style={{color: 'black', fontSize: 16}}>
                                                 Rp. {""}
-                                            </Text>
+                                            </Text> */}
                                         </View>
                                     </View>
                                     <View>
-                                        <Text style={{color: 'black', fontSize: 16}}>
+                                        {/* <Text style={{color: 'black', fontSize: 16}}>
                                             {""}
                                         </Text>
                                         <Text style={{color: 'black', fontSize: 16, marginTop: 30}}>
                                             Rp.
                                             {""}
-                                        </Text>
-                                        <Text style={{color: 'black', fontSize: 16}}>
+                                        </Text> */}
+                                        <Text style={{color: 'black', fontSize: 16, marginTop: 50}}>
                                             {item.expride_date}
                                         </Text>
                                     </View>

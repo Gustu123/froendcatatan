@@ -9,6 +9,7 @@ import { actionLogout } from "../redux/actions/authAction";
 import { detailtransaction } from "../services/transaksi";
 import { baseUrl } from "../services/baseApi";
 import { detailbudget } from "../services/anggaran";
+import moment from "moment";
 
 const Deskripsianggaran = () => {
     const navigati = useNavigation();
@@ -53,23 +54,23 @@ const Deskripsianggaran = () => {
                 </View>
                 <View style={{ marginTop: 5 }}>
                     <Text style={styles.text}>Amount:</Text>
-                    <Text style={styles.textt}>{deskripsis.amount}</Text>
+                    <Text style={styles.textt}>Rp. {deskripsis?.amount?.toLocaleString()}</Text>
                 </View>
                 <View style={{ marginTop: 5 }}>
                     <Text style={styles.text}>Batas Anggaran:</Text>
-                    <Text style={{ color: 'black', fontSize: 16 }}>
-                        {deskripsis.expride_date}
+                    <Text style={styles.textt}>
+                    {moment(deskripsis.expride_date).format("DD-MM-YYYY")}
                     </Text>
                 </View>
             </View>
-            <View style={styles.containers}>
+            {/* <View style={styles.containers}>
                 <TouchableOpacity
                     onPress={onLoginPress}
                     style={styles.upload}
                 >
                     <Text style={styles.uploadtext}>Kembali</Text>
                 </TouchableOpacity>
-            </View>
+            </View> */}
         </View>
     )
 }

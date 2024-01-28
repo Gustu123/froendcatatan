@@ -7,7 +7,7 @@ export const allbudget = (params) => {
     return get('budget', params)
 }
 export const detailbudget = (id) => {
-    return get(`transaction/${id}`)
+    return get(`budget/${id}`)
 }
 
 export const deleteBudget = (id) => {

@@ -1,4 +1,4 @@
-import React, {useState, useRef, useEffect, useCallback} from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import {
     StyleSheet,
     Button,
@@ -12,17 +12,17 @@ import {
     ScrollView,
     Image, ToastAndroid
 } from 'react-native';
-import {Icon} from "@rneui/themed";
+import { Icon } from "@rneui/themed";
 import DatePicker from "react-native-date-picker";
-import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
-import {useFocusEffect, useNavigation} from "@react-navigation/native"
-import {Modalize} from "react-native-modalize";
+import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
+import { useFocusEffect, useNavigation } from "@react-navigation/native"
+import { Modalize } from "react-native-modalize";
 import Navbar from "../components/Navbar"
 import moment from "moment";
-import {alldebt, deleteDebt} from "../services/utang";
+import { alldebt, deleteDebt } from "../services/utang";
 
 const FirstRoute = (props) => {
-    const {data, refresh} = props
+    const { data, refresh } = props
     const modalizeRef = useRef(null)
     const selectedIdRef = useRef(0)
     const showBs = () => {
@@ -61,7 +61,7 @@ const FirstRoute = (props) => {
     return (
         <View style={styles.home}>
             <View>
-                <Text style={{color: 'black', fontSize: 16}}>
+                <Text style={{ color: 'black', fontSize: 16 }}>
                     Total: Rp.{data?.totalDebts?.toLocaleString()}
                 </Text>
             </View>
@@ -70,7 +70,7 @@ const FirstRoute = (props) => {
                     <FlatList
                         data={data.debt}
                         keyExtractor={(item, index) => index}
-                        renderItem={({item, index}) => {
+                        renderItem={({ item, index }) => {
                             return (
                                 <TouchableOpacity
                                     onPress={() => {
@@ -90,41 +90,30 @@ const FirstRoute = (props) => {
                                         alignItems: 'center',
                                         margin: 3
                                     }}>
-                                    <View style={{flexDirection: 'row', marginTop: 8}}>
-                                        <View style={{marginLeft: 3}}>
-                                            <Text style={{color: 'black', fontSize: 16}}>
+                                    <View style={{ flexDirection: 'row', marginTop: 8 }}>
+                                        <View style={{ marginLeft: 3 }}>
+                                            <Text style={{ color: 'black', fontSize: 16 }}>
                                                 {item.name}
                                             </Text>
-                                            <Text style={{color: 'black', fontSize: 16}}>
+                                            <Text style={{ color: 'black', fontSize: 16 }}>
                                                 {""}
                                             </Text>
-                                            <TouchableOpacity
-                                                onPress={() => onClickButton()}
-                                                style={{flexDirection: 'row',}}
-                                            >
-                                                <Icon
-                                                    name='left'
-                                                    type='antdesign'
-                                                    size={20}
-                                                    color='black'
-                                                />
-                                                <Text style={{color: 'black'}}>Deskripsi</Text>
-                                            </TouchableOpacity>
+                                            <Text style={{ color: 'black', fontSize: 16, marginTop: -25 }}>
+                                                Rp. {item?.amount?.toLocaleString()}
+                                            </Text>
+                                            <Text style={{ color: 'black', fontSize: 16 }}>
+                                                {item.due_date}
+                                            </Text>
                                         </View>
                                     </View>
-                                    <View>
-                                        <Text style={{color: 'black', fontSize: 16, marginTop: 30}}>
-                                            Rp. {item?.amount?.toLocaleString()}
-                                        </Text>
-                                        <Text style={{color: 'black', fontSize: 16}}>
-                                            {item.due_date}
-                                        </Text>
-                                    </View>
+                                    {/* <View>
+
+                                    </View> */}
                                 </TouchableOpacity>
                             )
                         }}
                         ListEmptyComponent={() => (
-                            <Text style={{color: 'black', fontSize: 20, textAlign: 'center'}}>Maff Data Kosong</Text>
+                            <Text style={{ color: 'black', fontSize: 20, textAlign: 'center' }}>Maff Data Kosong</Text>
                         )}
                     />
                 </ScrollView>
@@ -145,20 +134,20 @@ const FirstRoute = (props) => {
                 ref={modalizeRef}
                 adjustToContentHeight
             >
-                <View style={{padding: 16}}>
-                    <Text style={{color: 'black'}}>Pilih Aksi:</Text>
-                    <View style={{flexDirection: 'row', marginTop: 8}}>
+                <View style={{ padding: 16 }}>
+                    <Text style={{ color: 'black' }}>Pilih Aksi:</Text>
+                    <View style={{ flexDirection: 'row', marginTop: 8 }}>
                         <TouchableOpacity
                             onPress={navigateDetail}
                             style={styles.upload}
                         >
-                            <Text style={{color: 'black'}}>Detail</Text>
+                            <Text style={{ color: 'black' }}>Detail</Text>
                         </TouchableOpacity>
                         <TouchableOpacity
                             onPress={doDelete}
                             style={styles.upload}
                         >
-                            <Text style={{color: 'black'}}>Hapus</Text>
+                            <Text style={{ color: 'black' }}>Hapus</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -169,7 +158,7 @@ const FirstRoute = (props) => {
 
 const SecondRoute = (props) => {
 
-    const {data, refresh} = props
+    const { data, refresh } = props
     const modalizeRef = useRef(null)
     const selectedIdRef = useRef(0)
     const showBs = () => {
@@ -207,7 +196,7 @@ const SecondRoute = (props) => {
     return (
         <View style={styles.home}>
             <View>
-                <Text style={{color: 'black', fontSize: 16}}>
+                <Text style={{ color: 'black', fontSize: 16 }}>
                     Total: Rp.{data?.totalDebts?.toLocaleString()}
                 </Text>
             </View>
@@ -216,7 +205,7 @@ const SecondRoute = (props) => {
                     <FlatList
                         data={data.debt}
                         keyExtractor={(item, index) => index}
-                        renderItem={({item, index}) => {
+                        renderItem={({ item, index }) => {
                             return (
                                 <TouchableOpacity
                                     onPress={() => {
@@ -236,41 +225,27 @@ const SecondRoute = (props) => {
                                         alignItems: 'center',
                                         margin: 3
                                     }}>
-                                    <View style={{flexDirection: 'row', marginTop: 8}}>
-                                        <View style={{marginLeft: 3}}>
-                                            <Text style={{color: 'black', fontSize: 16}}>
+                                    <View style={{ flexDirection: 'row', marginTop: 8 }}>
+                                        <View style={{ marginLeft: 3 }}>
+                                            <Text style={{ color: 'black', fontSize: 16 }}>
                                                 {item.name}
                                             </Text>
-                                            <Text style={{color: 'black', fontSize: 16}}>
+                                            <Text style={{ color: 'black', fontSize: 16 }}>
                                                 {""}
                                             </Text>
-                                            <TouchableOpacity
-                                                onPress={() => onClickButton()}
-                                                style={{flexDirection: 'row',}}
-                                            >
-                                                <Icon
-                                                    name='left'
-                                                    type='antdesign'
-                                                    size={20}
-                                                    color='black'
-                                                />
-                                                <Text style={{color: 'black'}}>Deskripsi</Text>
-                                            </TouchableOpacity>
+                                            <Text style={{ color: 'black', fontSize: 16, marginTop: -25 }}>
+                                                Rp. {item?.amount?.toLocaleString()}
+                                            </Text>
+                                            <Text style={{ color: 'black', fontSize: 16 }}>
+                                                {item.due_date}
+                                            </Text>
                                         </View>
-                                    </View>
-                                    <View>
-                                        <Text style={{color: 'black', fontSize: 16, marginTop: 30}}>
-                                            Rp. {item?.amount?.toLocaleString()}
-                                        </Text>
-                                        <Text style={{color: 'black', fontSize: 16}}>
-                                            {item.due_date}
-                                        </Text>
                                     </View>
                                 </TouchableOpacity>
                             )
                         }}
                         ListEmptyComponent={() => (
-                            <Text style={{color: 'black'}}>Maff Data sedang di proses</Text>
+                            <Text style={{ color: 'black', fontSize: 20, textAlign: 'center' }}>Maff Data Kosong</Text>
                         )}
                     />
                 </ScrollView>
@@ -291,20 +266,20 @@ const SecondRoute = (props) => {
                 ref={modalizeRef}
                 adjustToContentHeight
             >
-                <View style={{padding: 16}}>
-                    <Text style={{color: 'black'}}>Pilih Aksi:</Text>
-                    <View style={{flexDirection: 'row', marginTop: 8}}>
+                <View style={{ padding: 16 }}>
+                    <Text style={{ color: 'black' }}>Pilih Aksi:</Text>
+                    <View style={{ flexDirection: 'row', marginTop: 8 }}>
                         <TouchableOpacity
                             onPress={navigateDetail}
                             style={styles.upload}
                         >
-                            <Text style={{color: 'black'}}>Detail</Text>
+                            <Text style={{ color: 'black' }}>Detail</Text>
                         </TouchableOpacity>
                         <TouchableOpacity
                             onPress={doDelete}
                             style={styles.upload}
                         >
-                            <Text style={{color: 'black'}}>Hapus</Text>
+                            <Text style={{ color: 'black' }}>Hapus</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -321,9 +296,9 @@ const renderTabBar = (props) => {
     return (
         <TabBar
             {...props}
-            style={{backgroundColor: '#6AA84F'}}
-            renderLabel={({route, focused, color}) => (
-                <View style={[styles.tabbar, {backgroundColor: focused ? 'yellow' : 'gray'}]}>
+            style={{ backgroundColor: '#6AA84F' }}
+            renderLabel={({ route, focused, color }) => (
+                <View style={[styles.tabbar, { backgroundColor: focused ? 'yellow' : 'gray' }]}>
                     <Text style={styles.tabtitle}>
                         {route.title}
                     </Text>
@@ -345,8 +320,8 @@ const Utang = () => {
 
     const [index, setIndex] = React.useState(0);
     const [routes] = React.useState([
-        {key: 'first', title: 'BULANAN'},
-        {key: 'second', title: 'TAHUNAN'},
+        { key: 'first', title: 'BULANAN' },
+        { key: 'second', title: 'TAHUNAN' },
     ]);
 
     const [debts, setDebts] = useState([])
@@ -420,25 +395,25 @@ const Utang = () => {
             </View>
             <TabView
                 renderTabBar={renderTabBar}
-                navigationState={{index, routes}}
-                renderScene={({route}) => {
+                navigationState={{ index, routes }}
+                renderScene={({ route }) => {
                     switch (route.key) {
                         case "first":
                             return <FirstRoute
                                 data={debts}
                                 refresh={() => {
                                     allDebt()
-                                }}/>;
+                                }} />;
                         case "second":
                             return <SecondRoute
                                 data={debts}
                                 refresh={() => {
                                     allDebt()
-                                }}/>;
+                                }} />;
                     }
                 }}
                 onIndexChange={setIndex}
-                initialLayout={{width: layout.width}}
+                initialLayout={{ width: layout.width }}
             />
         </View>
     )

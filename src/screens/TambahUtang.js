@@ -138,7 +138,7 @@ const UangKeluar = () => {
                                             null
                                     }
                                 </View>
-                                <Text style={styles.inputp}>Tanggal Masuk:</Text>
+                                <Text style={styles.inputp}>Jatuh Tempo:</Text>
                                 <View>
                                     <DatePicker
                                         modal

@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import { Button, FlatList, Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Button, FlatList, Image, ScrollView, StyleSheet, Text, Icon, TouchableOpacity, View } from "react-native";
 import { useNavigation, useRoute } from '@react-navigation/native'
 import Navbar from "../components/Navbarr";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -16,7 +16,9 @@ const Deskripsitabungan = () => {
 
     const dispatch = useDispatch();
     const onLoginPress = () => {
-        navigati.goBack
+        AsyncStorage.setItem("token", "").then(() => {
+            dispatch(actionLogout())
+        })
     }
 
     const [deskripsis, setDeskripsis] = useState({})
@@ -37,11 +39,13 @@ const Deskripsitabungan = () => {
             />
             <View style={styles.container}>
                 <View>
-                    <Image
-                        source={{ uri: `${baseUrl}${deskripsis?.receipt}` }}
-                        style={{ width: 200, height: 200, }}
+                    < Icon
+                        name="cash-outline"
+                        type="Ionicons"
+                        style={{ justifyContent: 'center', paddingTop: 50 }}
+                        size={100}
+                        color={'black'}
                     />
-
                 </View>
                 <View style={{ marginTop: 5 }}>
                     <Text style={styles.text}>Name:</Text>
@@ -49,16 +53,16 @@ const Deskripsitabungan = () => {
                 </View>
                 <View style={{ marginTop: 5 }}></View>
                 <Text style={styles.text}>Total Tabungan:</Text>
-                <Text style={styles.textt}>{deskripsis.total_amount}</Text>
+                <Text style={styles.textt}>Rp. {deskripsis?.total_amount?.toLocaleString()}</Text>
             </View>
-            <View style={styles.containers}>
+            {/* <View style={styles.containers}>
                 <TouchableOpacity
                     onPress={onLoginPress}
                     style={styles.upload}
                 >
                     <Text style={styles.uploadtext}>Kembali</Text>
                 </TouchableOpacity>
-            </View>
+            </View> */}
         </View>
     )
 }

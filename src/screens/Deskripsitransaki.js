@@ -52,7 +52,7 @@ const Deskripsitransaksi = () => {
                 hasicon={false}
             />
             <View style={styles.container}>
-                <View>
+                <View style={styles.foto}>
                     <Image
                         source={{uri: `${baseUrl}${deskripsis?.receipt}`}}
                         style={{width: 200, height: 200,}}
@@ -67,10 +67,10 @@ const Deskripsitransaksi = () => {
                 <Text style={styles.text}>Deskripsi:</Text>
                 <Text style={styles.textt}>{deskripsis.deskripsi}</Text>
             </View>
-            <View style={{marginTop: 5}}>
+            {/* <View style={{marginTop: 5}}>
                 <Text style={styles.text}>Tujuan</Text>
                 <Text style={styles.textt}>{deskripsis.purposeable_type}</Text>
-            </View>
+            </View> */}
             <View style={{marginTop: 5}}>
                 <Text style={styles.text}>Amount:</Text>
                 <Text style={styles.textt}>Rp. {deskripsis?.amount?.toLocaleString()}</Text>
@@ -130,5 +130,10 @@ const styles = StyleSheet.create({
     uploadtext: {
         justifyContent: 'center',
         color: 'black',
+    },
+    foto: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingTop: 20
     },
 });

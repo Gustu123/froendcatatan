@@ -1,6 +1,6 @@
 import { CheckBox, Icon } from "@rneui/themed";
 import React, { useEffect, useState, useRef } from "react";
-import { Button, FlatList, Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Button, FlatList, Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View} from "react-native";
 import { useNavigation, useRoute } from '@react-navigation/native'
 import Navbar from "../components/Navbarr";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -10,6 +10,7 @@ import { detailtransaction } from "../services/transaksi";
 import { baseUrl } from "../services/baseApi";
 import { detailbudget } from "../services/anggaran";
 import { detaildebt } from "../services/utang";
+import moment from "moment";
 
 const Deskripsianggaran = () => {
     const navigati = useNavigation();
@@ -42,11 +43,13 @@ const Deskripsianggaran = () => {
             />
             <View style={styles.container}>
                 <View>
-                    <Image
-                        source={{ uri: `${baseUrl}${deskripsis?.receipt}` }}
-                        style={{ width: 200, height: 200, }}
+                    < Icon
+                        name="money-check"
+                        type="font-awesome-5"
+                        style={{ justifyContent: 'center', paddingTop: 50 }}
+                        size={100}
+                        color={'black'}
                     />
-
                 </View>
                 <View style={{ marginTop: 5 }}>
                     <Text style={styles.text}>Name:</Text>
@@ -54,29 +57,29 @@ const Deskripsianggaran = () => {
                 </View>
                 <View style={{ marginTop: 5 }}>
                     <Text style={styles.text}>Amount:</Text>
-                    <Text style={styles.textt}>{deskripsis.amount}</Text>
+                    <Text style={styles.textt}>Rp. {deskripsis?.amount?.toLocaleString()}</Text>
                 </View>
                 <View style={{ marginTop: 5 }}>
                     <Text style={styles.text}>Jatuh Tempo:</Text>
-                    <Text style={styles.textt}>{deskripsis.due_date}</Text>
+                    <Text style={styles.textt}>{moment(deskripsis.expride_date).format("DD-MM-YYYY")}</Text>
                 </View>
                 <View style={{ marginTop: 5 }}>
                     <Text style={styles.text}>Pembayaran:</Text>
-                    <Text style={styles.textt}>{deskripsis.amount_paid}</Text>
+                    <Text style={styles.textt}>Rp. {deskripsis?.amount_paid?.toLocaleString()}</Text>
                 </View>
                 <View style={{ marginTop: 5 }}>
                     <Text style={styles.text}>Status:</Text>
                     <Text style={styles.textt}>{deskripsis.status}</Text>
                 </View>
             </View>
-            <View style={styles.containers}>
+            {/* <View style={styles.containers}>
                 <TouchableOpacity
                     onPress={onLoginPress}
                     style={styles.upload}
                 >
                     <Text style={styles.uploadtext}>Kembali</Text>
                 </TouchableOpacity>
-            </View>
+            </View> */}
         </View>
     )
 }

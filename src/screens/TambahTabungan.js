@@ -12,7 +12,7 @@ import { wallet } from "../services/tabungan";
 import { Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const UangKeluar = () => { 
+const UangKeluar = () => {
 
     const initValues = {
         total_amount: 0,
@@ -65,7 +65,7 @@ const UangKeluar = () => {
         navigati.goBack()
     }
 
-    
+
     const [total_amount, setAmount] = useState(null)
 
     const [date, setDate] = useState(new Date())
@@ -102,6 +102,14 @@ const UangKeluar = () => {
                         }) => (
                             <>
                                 <View style={styles.col}>
+                                    < Icon
+                                        name="bank"
+                                        type="font-awesome"
+                                        style={{ justifyContent: 'center', paddingTop: 50 }}
+                                        size={100}
+                                        color={'black'}
+                                    />
+                                    <Text style={styles.inputppp}>Silahkan Masukan Tabungan</Text>
                                     <Text style={styles.inputp}>Jumlah Tabungan:</Text>
                                     <TextInput
                                         style={styles.input}
@@ -127,7 +135,7 @@ const UangKeluar = () => {
                                         style={styles.inputtbg}
                                         onChangeText={handleChange('name')}
                                         value={values.name}
-                                        placeholder='masukan deskripsi tabungan'
+                                        placeholder='masukan nama tabungan'
                                         placeholderTextColor={'gray'}
                                     />
                                     {
@@ -222,6 +230,12 @@ const styles = StyleSheet.create({
         color: 'black',
         marginLeft: 9,
         paddingTop: 10,
+    },
+    inputppp: {
+        textAlign: 'center',
+        color: 'black',
+        fontSize: 25,
+        fontWeight: 'bold',
     },
     input1: {
         marginLeft: 160,

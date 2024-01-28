@@ -91,7 +91,7 @@ const LoginScreen = () => {
                                 <View style={style.inputContainer}>
                                     <TextInput
                                         onChangeText={handleChange('password')}
-                                        placeholder='Write your name'
+                                        placeholder='Masukan Password'
                                         value={values.password}
                                         style={styles.input}
                                         placeholderTextColor={'gray'}

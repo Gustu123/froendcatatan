@@ -156,7 +156,7 @@ const TambahAnggaran = () => {
                                 <View style={styles.scrol}>
                                     <ScrollView>
                                         <View style={styles.col}>
-                                            <Text style={styles.inputp}>Jumlah Tabungan:</Text>
+                                            <Text style={styles.inputp}>Jumlah Anggaran:</Text>
                                             <TextInput
                                                 style={styles.input}
                                                 onChangeText={(value) => {
@@ -218,7 +218,7 @@ const TambahAnggaran = () => {
                                                 ))
                                             }
                                         </View>
-                                        <Text style={styles.inputp}>Tanggal Masuk:</Text>
+                                        <Text style={styles.inputp}>Batas Anggaran:</Text>
                                         <View>
                                             <DatePicker
                                                 modal

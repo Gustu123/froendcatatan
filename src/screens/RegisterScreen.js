@@ -11,7 +11,7 @@ const RegisterScreen = () => {
 
     const navigati = useNavigation()
     const [nape, setNape] = useState('');
-    const [number, onChangeNumber] = React.useState('');
+    // const [number, onChangeNumber] = React.useState('');
     const [isShowPass, setIsShowPass] = useState(false)
     const [password, setPassword] = useState('')
     const [gmail, setGmail] = useState('');

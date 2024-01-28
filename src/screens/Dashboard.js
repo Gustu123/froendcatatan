@@ -54,14 +54,14 @@ const FirstRoute = (props) => {
 
   const persentase = [
     {
-      name: "Uang Masuk",
+      name: "Uang Keluar",
       population: data?.persentaseIn ?? 0,
       color: "rgba(131, 167, 234, 1)",
       legendFontColor: "#7F7F7F",
       legendFontSize: 15,
     },
     {
-      name: "Uang Keluar",
+      name: "Uang Masuk",
       population: data?.persentaseOut ?? 0,
       color: "#F00",
       legendFontColor: "#7F7F7F",
@@ -80,12 +80,12 @@ const FirstRoute = (props) => {
         backgroundColor={"white"}
         paddingLeft={"15"}
       />
-      <View style={{marginTop: -50, paddingLeft:200}}>
+      <View style={{marginTop: -50, paddingLeft:180}}>
         <Text style={{ color: 'black', fontSize: 16, fontFamily: 'times new roman' }}>
-          Total Uang Keluar: {data.totalCashOut}
+          Pengeluaran:Rp. {data?.totalCashOut?.toLocaleString()}
         </Text>
         <Text style={{ color: 'black', fontSize: 16, fontFamily: 'times new roman' }}>
-          Total Uang Masuk: {data.totalCashIn}
+          Pemasukan:Rp. {data?.totalCashIn?.toLocaleString()}
         </Text>
       </View>
 
