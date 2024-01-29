@@ -16,7 +16,7 @@ const Ubahpassword = () => {
     const nav = useNavigation()
     const route = useRoute()
 
-    const {userId} = route.params
+    const {userId, isForgot = false} = route.params
 
     const [isShowPass, setIsShowPass] = useState(false)
     const [isShowConf, setIsShowConf] = useState(false)
@@ -24,7 +24,7 @@ const Ubahpassword = () => {
     const onChangePass = async (data) => {
         try {
             const body = {
-                oldPassword: data.oldPassword,
+                oldPassword: isForgot ? null : data.oldPassword,
                 newPassword: data.newPassword,
                 userId: userId
             }
@@ -69,12 +69,26 @@ const Ubahpassword = () => {
             .max(16)
             .required("Password baru tidak boleh kosong"),
     })
+
+    const schemaForgot = yup.object().shape({
+        newPassword: yup.string()
+            .min(8)
+            .max(16)
+            .required("Password baru tidak boleh kosong"),
+    })
+
     return (
         <View style={style.container}>
-            <Text style={styles.inputj}>Silahkan Ubah Password</Text>
+            <Text style={styles.inputj}>
+                {
+                    isForgot
+                        ? 'Lupa Password'
+                        : 'Silahkan Ubah Password'
+                }
+            </Text>
             <Formik
                 initialValues={initValues}
-                validationSchema={schema}
+                validationSchema={isForgot ? schemaForgot : schema}
                 onSubmit={onChangePass}
             >
                 {
@@ -87,30 +101,35 @@ const Ubahpassword = () => {
                      }) => (
                         <>
                             <View>
-                                <Text style={style.inputm}>Password Lama:</Text>
-                                <TextInput
-                                    onChangeText={handleChange('oldPassword')}
-                                    placeholder='Masukan password lama'
-                                    value={values.oldPassword}
-                                    style={styles.input}
-                                    placeholderTextColor={'gray'}
-                                    secureTextEntry={!isShowConf}
-                                />
                                 {
-                                    errors.oldPassword && touched.oldPassword ?
-                                        <Text style={{color: 'red'}}>{errors.oldPassword}</Text>
-                                        :
-                                        null
+                                    !isForgot &&
+                                    <>
+                                        <Text style={style.inputm}>Password Lama:</Text>
+                                        <TextInput
+                                            onChangeText={handleChange('oldPassword')}
+                                            placeholder='Masukan password lama'
+                                            value={values.oldPassword}
+                                            style={styles.input}
+                                            placeholderTextColor={'gray'}
+                                            secureTextEntry={!isShowConf}
+                                        />
+                                        {
+                                            errors.oldPassword && touched.oldPassword ?
+                                                <Text style={{color: 'red'}}>{errors.oldPassword}</Text>
+                                                :
+                                                null
+                                        }
+                                        <Icon
+                                            name={!isShowConf ? "eye-slash" : "eye"}
+                                            type="font-awesome"
+                                            size={25}
+                                            containerStyle={styles.iconn}
+                                            onPress={() => {
+                                                setIsShowConf(!isShowConf)
+                                            }}
+                                        />
+                                    </>
                                 }
-                                <Icon
-                                    name={!isShowConf ? "eye-slash" : "eye"}
-                                    type="font-awesome"
-                                    size={25}
-                                    containerStyle={styles.iconn}
-                                    onPress={() => {
-                                        setIsShowConf(!isShowConf)
-                                    }}
-                                />
                                 <Text style={style.inputp}>Password Baru</Text>
                                 <View style={style.inputContainer}>
                                     <TextInput

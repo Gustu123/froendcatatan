@@ -14,8 +14,11 @@ const Tabungan = (props) => {
     const [index, setIndex] = React.useState(0);
     const [wallets, setWallets] = useState([])
     const [selectedId, setSelectedId] = useState(0)
+    const [search, setSearch] = useState("")
     const allWallet = async () => {
-        const wallets = await allwallet()
+        const wallets = await allwallet({
+            search: search
+        })
         setWallets(wallets.wallets)
     }
 
@@ -34,7 +37,7 @@ const Tabungan = (props) => {
     const navigateDetail = () => {
         navigati.navigate("Deskripsitabungan", {
             id: selectedId
-        })  
+        })
     }
 
     useFocusEffect(
@@ -48,6 +51,13 @@ const Tabungan = (props) => {
             <Navbar
                 title="Tabungan"
                 hasicon={true}
+                onSearchChange={value => {
+                    setSearch(value)
+                }}
+                onSearchSubmit={x => {
+                    console.log(search)
+                    allWallet()
+                }}
             />
             <View style={styles.scrol}>
                 <ScrollView>
@@ -90,7 +100,7 @@ const Tabungan = (props) => {
                             )
                         }}
                         ListEmptyComponent={() => (
-                            <Text style={{ color: 'black', fontSize: 20, textAlign: 'center' }}>Maff Data Kosong</Text>
+                            <Text style={{color: 'black', fontSize: 20, textAlign: 'center'}}>Maff Data Kosong</Text>
                         )}
                     />
                 </ScrollView>

@@ -22,7 +22,8 @@ const Lupapassword = () => {
 
         if (res) {
             nav.replace("ChangePassword", {
-                userId: res.user.id
+                userId: res.user.id,
+                isForgot: true
             })
         }
     }

@@ -10,9 +10,9 @@ export const post = async (route, body, option) => {
     }
 }
 
-export const get = async (route, body) => {
+export const get = async (route, params) => {
     try {
-        const response = await BaseClient.get(route, {params: body})
+        const response = await BaseClient.get(route, {params: params})
         return response.data.data
     }catch (err) {
         getErrorMessage(err)

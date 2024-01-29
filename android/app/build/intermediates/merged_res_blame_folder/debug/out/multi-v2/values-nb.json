@@ -4,7 +4,24 @@
             "outputFile": "com.bukukas.app-mergeDebugResources-30:/values-nb/values-nb.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\gustu\\.gradle\\caches\\transforms-3\\b14585e0ae3314e7a64bac79062dab1c\\transformed\\appcompat-1.4.1\\res\\values-nb\\values-nb.xml",
+                    "source": "C:\\Users\\Maul-Mobile\\.gradle\\caches\\transforms-3\\75e4635b66fa4e4e84e71b52579837ce\\transformed\\core-1.7.0\\res\\values-nb\\values-nb.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "100",
+                        "endOffsets": "151"
+                    },
+                    "to": {
+                        "startLines": "39",
+                        "startColumns": "4",
+                        "startOffsets": "3293",
+                        "endColumns": "100",
+                        "endOffsets": "3389"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\Maul-Mobile\\.gradle\\caches\\transforms-3\\b14585e0ae3314e7a64bac79062dab1c\\transformed\\appcompat-1.4.1\\res\\values-nb\\values-nb.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
@@ -21,7 +38,7 @@
                     }
                 },
                 {
-                    "source": "D:\\Tugas Kampus\\Skripsi\\bukukas\\froendcatatan\\node_modules\\react-native-date-picker\\android\\build\\intermediates\\packaged_res\\debug\\values-nb\\values-nb.xml",
+                    "source": "D:\\Timedoor\\Academy\\Apps (Gustu)\\froendcatatan\\node_modules\\react-native-date-picker\\android\\build\\intermediates\\packaged_res\\debug\\values-nb\\values-nb.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4",
@@ -35,23 +52,6 @@
                         "startOffsets": "2737,2793,2848,2901,2956,2998,3060,3109,3166,3394,3440",
                         "endColumns": "55,54,52,54,41,61,48,56,46,45,52",
                         "endOffsets": "2788,2843,2896,2951,2993,3055,3104,3161,3208,3435,3488"
-                    }
-                },
-                {
-                    "source": "C:\\Users\\gustu\\.gradle\\caches\\transforms-3\\75e4635b66fa4e4e84e71b52579837ce\\transformed\\core-1.7.0\\res\\values-nb\\values-nb.xml",
-                    "from": {
-                        "startLines": "2",
-                        "startColumns": "4",
-                        "startOffsets": "55",
-                        "endColumns": "100",
-                        "endOffsets": "151"
-                    },
-                    "to": {
-                        "startLines": "39",
-                        "startColumns": "4",
-                        "startOffsets": "3293",
-                        "endColumns": "100",
-                        "endOffsets": "3389"
                     }
                 }
             ]

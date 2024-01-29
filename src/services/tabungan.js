@@ -4,8 +4,8 @@ export const wallet = (data) => {
     return post('wallet', data)
 }
 
-export const allwallet = () => {
-    return get('wallet')
+export const allwallet = (params) => {
+    return get('wallet', params)
 }
 
 export const detailwallet = (id) => {
